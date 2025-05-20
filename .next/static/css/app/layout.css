@@ -2523,59 +2523,29 @@ html, body {
   overflow-x: hidden;
 }
 
-
-/* Correção de scroll sobre flip-card no mobile */
-/* ✅ Correção completa: scroll sobre flip-card no mobile sem bloquear interações */
-/* ✅ Correção definitiva para scroll travando sobre flip-card no mobile */
+/* === Flip-card ▸ correção mobile: rotação + scroll ============= */
+/* === Flip-card ▸ correção mobile: rotação + scroll ============= */
 @media (max-width: 1023px) {
+  /* contêiner: permite pan-y e deixa o gesto vazar para o <body>    */
   .flip-card {
-    touch-action: auto !important;
-  }
-
-  .flip-card-inner {
-    transform: none !important;
-    will-change: auto !important;
-  }
-
-  .flip-card:hover .flip-card-inner {
-    transform: none !important;
-  }
-
-.flip-card-front,
-.flip-card-back {
-  touch-action: pan-y !important;
-  overscroll-behavior: auto !important;      /* ✅ gesto pode “escapar” */
-  pointer-events: auto !important;
-}
-
-
-/* role só dentro do card aberto */
-.flip-card.is-flipped .flip-card-back {
-  overscroll-behavior: contain !important;
-  overflow-y: auto !important;
-}
-
-
-  .flip-card.is-flipped {
-    position: fixed !important;
-    inset: 0 !important;
-    width: 100vw !important;
-    height: 100vh !important;
-    z-index: 9999;
-    overflow-y: auto !important;
     touch-action: pan-y !important;
+    overscroll-behavior: auto !important;     /* ← NOVO */
+  }
+
+  /* faces padrão → scroll “escapa” para a página                    */
+  .flip-card-front,
+  .flip-card-back {
+    overscroll-behavior: auto !important;
+  }
+
+  /* card virado → scroll preso no verso                             */
+  .flip-card.is-flipped,
+  .flip-card.is-flipped .flip-card-back {
     overscroll-behavior: contain !important;
   }
 
-  .flip-card.is-flipped .flip-card-front {
-    opacity: 0 !important;
-    pointer-events: none !important;
-  }
-
   .flip-card.is-flipped .flip-card-back {
-    pointer-events: auto !important;
-    transform: rotateY(180deg);
-    overflow-y: auto !important;
+    overflow-y: auto !important;              /* barra interna se precisar */
   }
 }
 .file\:border-0::file-selector-button{
@@ -3205,6 +3175,10 @@ html, body {
     font-size: 1.25rem;
     line-height: 1.75rem;
   }
+
+  .sm\:text-5xl{
+    font-size: 3rem;
+  }
 }
 @media (min-width: 768px){
 
@@ -3431,6 +3405,10 @@ html, body {
 
   .xl\:grid-cols-5{
     grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .xl\:grid-cols-4{
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 .\[\&\+div\]\:text-xs+div{

@@ -521,7 +521,8 @@ export default function ResponsabilidadeCivil() {
 
   {/* Conteúdo do hero */}
   <div className="relative z-10 flex flex-col items-center justify-center text-white text-center px-6 h-full max-w-4xl mx-auto">
-    <h1 className="text-6xl md:text-7xl font-bold mb-6">
+    <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6">
+
       Responsabilidade Civil Profissional
     </h1>
     <p className="text-xl text-white/80 max-w-2xl mb-8">
@@ -539,7 +540,8 @@ export default function ResponsabilidadeCivil() {
       <section className="py-16" data-aos="fade-up">
         <div className="container mx-auto px-6">
           <h2 className="text-3xl font-semibold text-center mb-12">PROFISSIONAIS ATENDIDOS </h2>
-          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 auto-rows-fr">
+          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 auto-rows-fr">
+
             {profissionais.map((p) => (
               <div key={p.id} className="h-full">
                 <Card p={p} />
@@ -561,7 +563,9 @@ export default function ResponsabilidadeCivil() {
               className="inline-block bg-accent/100 text-accent hover:bg-primary hover:text-white font-medium py-3 px-8 rounded-lg transition shadow-md"
             />
         </div>
-      </section>
-    </main>
+     </section>
+<div className="h-10" />  {/* Espaço no final */}
+</main>
+
   )
 }
