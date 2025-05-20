@@ -25,7 +25,7 @@ export default function Header() {
         </Link>
 
         {/* Navegação Desktop */}
-        <nav className="hidden md:flex items-center space-x-8">
+        <nav className="hidden lg:flex items-center space-x-6">
           <Link href="/" className="text-white hover:text-accent transition-colors font-medium">HOME</Link>
           <Link href="/quem-somos" className="text-white hover:text-accent transition-colors font-medium">QUEM SOMOS</Link>
           <Link href="/seguros" className="text-white hover:text-accent transition-colors font-medium">SEGUROS</Link>
@@ -45,10 +45,11 @@ export default function Header() {
 
         {/* Botão Mobile */}
         <button
-          className="md:hidden text-white focus:outline-none"
-          onClick={toggleMenu}
-          aria-label="Toggle menu"
-        >
+  className="lg:hidden text-white focus:outline-none"
+  onClick={toggleMenu}
+  aria-label="Toggle menu"
+>
+
           {isMenuOpen ? (
             <svg className="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none"
               viewBox="0 0 24 24" stroke="currentColor">
@@ -64,9 +65,9 @@ export default function Header() {
       </div>
 
       {/* Navegação Mobile */}
-      {isMenuOpen && (
-        <div className="md:hidden bg-primary bg-opacity-95 border-t border-white/10 py-4">
-          <div className="container mx-auto flex flex-col space-y-4 px-4">
+     {isMenuOpen && (
+  <div className="lg:hidden bg-primary bg-opacity-95 border-t border-white/10 py-4">
+    <div className="container mx-auto flex flex-col space-y-4 px-4">
             <Link href="/" className="text-white hover:text-accent transition-colors" onClick={toggleMenu}>HOME</Link>
             <Link href="/seguros" className="text-white hover:text-accent transition-colors" onClick={toggleMenu}>SEGUROS</Link>
             <Link href="/investimentos" className="text-white hover:text-accent transition-colors" onClick={toggleMenu}>INVESTIMENTOS</Link>

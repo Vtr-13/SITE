@@ -4,6 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  box-sizing: border-box;
+}
+
 :root {
   --primary: #14223B;
   --accent: #C08E00;
@@ -165,6 +169,7 @@ h1, h2, h3, h4, h5, h6 {
   border-top: 4px solid var(--accent);
   border-radius: 0.5rem;
   overflow: visible;
+  touch-action: manipulation;
 }
 
 /* mecanismo de rotação */
@@ -275,3 +280,64 @@ h1, h2, h3, h4, h5, h6 {
   .texto-paragrafo    { @apply text-base leading-relaxed text-white/90; }
   .texto-paragrafo-sm { @apply text-sm  leading-relaxed text-white/90; }
 }
+html, body {
+  overflow-x: hidden;
+}
+
+
+/* Correção de scroll sobre flip-card no mobile */
+/* ✅ Correção completa: scroll sobre flip-card no mobile sem bloquear interações */
+/* ✅ Correção definitiva para scroll travando sobre flip-card no mobile */
+@media (max-width: 1023px) {
+  .flip-card {
+    touch-action: auto !important;
+  }
+
+  .flip-card-inner {
+    transform: none !important;
+    will-change: auto !important;
+  }
+
+  .flip-card:hover .flip-card-inner {
+    transform: none !important;
+  }
+
+.flip-card-front,
+.flip-card-back {
+  touch-action: pan-y !important;
+  overscroll-behavior: auto !important;      /* ✅ gesto pode “escapar” */
+  pointer-events: auto !important;
+}
+
+
+/* role só dentro do card aberto */
+.flip-card.is-flipped .flip-card-back {
+  overscroll-behavior: contain !important;
+  overflow-y: auto !important;
+}
+
+
+  .flip-card.is-flipped {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 9999;
+    overflow-y: auto !important;
+    touch-action: pan-y !important;
+    overscroll-behavior: contain !important;
+  }
+
+  .flip-card.is-flipped .flip-card-front {
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+
+  .flip-card.is-flipped .flip-card-back {
+    pointer-events: auto !important;
+    transform: rotateY(180deg);
+    overflow-y: auto !important;
+  }
+}
+
+

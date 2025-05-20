@@ -389,10 +389,12 @@ function Card({ ramo, flipped, setFlipped }: {
   const isOpen = flipped === ramo.nome;
 
   return (
-    <div
-      className={`flip-card bg-offwhite rounded-xl shadow-lg h-full transform hover:scale-105 transition-transform duration-300 ${isOpen ? "is-flipped" : ""}`}
-      onClick={() => setFlipped(isOpen ? null : ramo.nome)}
-    >
+   <div
+  className={`flip-card bg-offwhite rounded-xl shadow-lg h-full transition-transform duration-300 hover:lg:scale-105 ${isOpen ? "is-flipped" : ""}`}
+  onClick={() => setFlipped(isOpen ? null : ramo.nome)}
+>
+
+
       <div className="flip-card-inner">
         <div className="flip-card-front p-8 border-t-4 border-accent flex flex-col">
           <Image src={ramo.icone} alt={`Ícone do ramo ${ramo.nome}`} width={48} height={48} className="mb-5" />
@@ -469,17 +471,8 @@ export default function Financiamentos() {
   useEffect(() => {
     AOS.init({ once: true });
   }, []);
-  useEffect(() => {
-  if (flipped) {
-    document.body.style.overflow = "hidden";
-  } else {
-    document.body.style.overflow = "";
-  }
 
-  return () => {
-    document.body.style.overflow = "";
-  };
-}, [flipped]);
+
 
 
   return (
@@ -578,28 +571,24 @@ export default function Financiamentos() {
 </section>
 
 
+     <section className="py-12" data-aos="fade-up">
+  <div className="container mx-auto px-6 text-center">
+    <h2 className="text-3xl font-semibold mb-10">INSTITUIÇÕES PARCEIRAS</h2>
+    <div className="flex flex-wrap items-center justify-center gap-8 grayscale hover:grayscale-0 transition-all">
+      {["itau.png", "bradesco.png", "santander.png", "c6.png", "caixa.png", "bv.png", "pan.png"].map((logo) => (
+        <Image
+          key={logo}
+          src={`/images/financiamentos/logos/${logo}`} // ✅ Caminho correto
+          alt={`Logo do banco ${logo.replace(".png", "")}`}
+          width={120}
+          height={60}
+          className="opacity-80 hover:opacity-100"
+        />
+      ))}
+    </div>
+  </div>
+</section>
 
-
-
-
-
-      <section className="py-12" data-aos="fade-up">
-        <div className="container mx-auto px-6 text-center">
-          <h2 className="text-3xl font-semibold mb-10">INSTITUIÇÕES PARCEIRAS</h2>
-          <div className="flex flex-wrap items-center justify-center gap-8 grayscale hover:grayscale-0 transition-all">
-            {["itau.png", "bradesco.png", "santander.png","c6.png",  "caixa.png", "bv.png", "pan.png"].map((logo) => (
-              <Image
-                key={logo}
-                src={`/images/financiamentos/${logo}`}
-                alt={`Logo do banco ${logo.replace(".png", "")}`}
-                width={120}
-                height={60}
-                className="opacity-80 hover:opacity-100"
-              />
-            ))}
-          </div>
-        </div>
-      </section>
 
       <section className="py-16 bg-primary text-white" data-aos="fade-up">
   <div className="container mx-auto px-6">

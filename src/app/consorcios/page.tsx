@@ -316,81 +316,83 @@ useEffect(() => {
         </div>
       </section>
 
-      {/* ------------------------------------------------------------------ */}
-      {/* DEPOIMENTOS (Swiper)                                              */}
-      {/* ------------------------------------------------------------------ */}
-      <section
-        id="depoimentos"
-        className="bg-primary py-20 text-white scroll-mt-20"
-      >
-        <div className="container mx-auto px-4">
-          <div className="mx-auto mb-12 max-w-2xl text-center">
-            <h2 className="font-heading text-4xl font-bold">
-              Muitos clientes <span className="text-accent">satisfeitos</span>
-            </h2>
-          </div>
+{/* ------------------------------------------------------------------ */}
+{/* DEPOIMENTOS (Swiper)                                              */}
+{/* ------------------------------------------------------------------ */}
+<section
+  id="depoimentos"
+  className="bg-primary py-20 text-white scroll-mt-20"
+>
+  <div className="container mx-auto px-4">
+    <div className="mx-auto mb-12 max-w-2xl text-center">
+      <h2 className="font-heading text-4xl font-bold">
+        Muitos clientes <span className="text-accent">satisfeitos</span>
+      </h2>
+    </div>
 
-          <Swiper
-            modules={[Pagination, Autoplay]}
-            pagination={{ clickable: true }}
-            autoplay={{ delay: 6000 }}
-            loop
-            spaceBetween={40}
-            breakpoints={{
-              640: { slidesPerView: 1 },
-              1024: { slidesPerView: 2 },
-            }}
-            className="!overflow-visible"
-          >
-            {[
-              {
-                nome: 'Fernanda Silva',
-                texto:
-                  'Consegui minha carta de crédito em 8 meses e comprei meu primeiro apartamento sem pagar juros. Atendimento nota 10!',
-              },
-              {
-                nome: 'Carlos Oliveira',
-                texto:
-                  'Fiz um consórcio de caminhão e fui contemplado por lance. Economia enorme comparada ao leasing.',
-              },
-              {
-                nome: 'Juliana Costa',
-                texto:
-                  'A equipe da ARJ PRIME me ajudou em cada passo. Hoje tenho meu carro novo pagando muito menos.',
-              },
-              {
-                nome: 'Marcos Vieira',
-                texto:
-                  'Optei por consórcio de serviços para minha pós-graduação no exterior. Processo transparente e rápido.',
-              },
-            ].map((d, i) => (
-              <SwiperSlide key={i}>
-                <article className="relative h-full rounded-xl bg-white p-8 text-primary shadow-md">
-                  <svg
-                    viewBox="0 0 24 24"
-                    className="absolute -top-4 left-4 h-10 w-10 text-accent/60"
-                    aria-hidden="true"
-                  >
-                    <path
-                      fill="currentColor"
-                      d="M7.17 6C4.66 6 3 7.9 3 10.5S4.66 15 7.17 15c.74 0 1.37-.11 1.89-.32l.29 1.54C8.25 16.73 7.27 17 6 17c-3 0-5-2.38-5-6s2-6 5-6c1.5 0 2.76.48 3.64 1.37L9.17 9C8.7 8.5 8 8 7.17 8zm11 0C15.66 6 14 7.9 14 10.5S15.66 15 18.17 15c.74 0 1.37-.11 1.89-.32l.29 1.54C19.25 16.73 18.27 17 17 17c-3 0-5-2.38-5-6s2-6 5-6c1.5 0 2.76.48 3.64 1.37L20.17 9c-.47-.5-1.17-1-2-1z"
-                    />
-                  </svg>
+    <div className="container mx-auto px-4">
+      <div className="rounded-xl overflow-hidden">
+        <Swiper
+          modules={[Pagination, Autoplay]}
+          pagination={{ clickable: true }}
+          autoplay={{ delay: 6000 }}
+          loop
+          spaceBetween={40}
+          breakpoints={{
+            640: { slidesPerView: 1 },
+            1024: { slidesPerView: 2 },
+          }}
+          className="!overflow-visible"
+        >
+          {[
+            {
+              nome: 'Fernanda Silva',
+              texto:
+                'Consegui minha carta de crédito em 8 meses e comprei meu primeiro apartamento sem pagar juros. Atendimento nota 10!',
+            },
+            {
+              nome: 'Carlos Oliveira',
+              texto:
+                'Fiz um consórcio de caminhão e fui contemplado por lance. Economia enorme comparada ao leasing.',
+            },
+            {
+              nome: 'Juliana Costa',
+              texto:
+                'A equipe da ARJ PRIME me ajudou em cada passo. Hoje tenho meu carro novo pagando muito menos.',
+            },
+            {
+              nome: 'Marcos Vieira',
+              texto:
+                'Optei por consórcio de serviços para minha pós-graduação no exterior. Processo transparente e rápido.',
+            },
+          ].map((d, i) => (
+            <SwiperSlide key={i}>
+              <article className="relative h-full rounded-xl bg-white p-8 text-primary shadow-md">
+                <svg
+                  viewBox="0 0 24 24"
+                  className="absolute -top-4 left-4 h-10 w-10 text-accent/60"
+                  aria-hidden="true"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M7.17 6C4.66 6 3 7.9 3 10.5S4.66 15 7.17 15c.74 0 1.37-.11 1.89-.32l.29 1.54C8.25 16.73 7.27 17 6 17c-3 0-5-2.38-5-6s2-6 5-6c1.5 0 2.76.48 3.64 1.37L9.17 9C8.7 8.5 8 8 7.17 8zm11 0C15.66 6 14 7.9 14 10.5S15.66 15 18.17 15c.74 0 1.37-.11 1.89-.32l.29 1.54C19.25 16.73 18.27 17 17 17c-3 0-5-2.38-5-6s2-6 5-6c1.5 0 2.76.48 3.64 1.37L20.17 9c-.47-.5-1.17-1-2-1z"
+                  />
+                </svg>
 
-                  <p className="mt-6 text-base leading-relaxed">{d.texto}</p>
-                  <p className="mt-4 font-semibold text-accent">{d.nome}</p>
-                </article>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
-      </section>
+                <p className="mt-6 text-base leading-relaxed">{d.texto}</p>
+                <p className="mt-4 font-semibold text-accent">{d.nome}</p>
+              </article>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+    </div>
+  </div>
+</section>
 
-      {/* ------------------------------------------------------------------ */}
-      {/* FAQ (Disclosure)                                                  */}
-      {/* ------------------------------------------------------------------ */}
 
-     
+
+
         {/* ------------------------------------------------------------------ */}
       {/* FAQ                                                               */}
       {/* ------------------------------------------------------------------ */}

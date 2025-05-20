@@ -330,7 +330,8 @@ return (
   <div className="absolute inset-0 bg-black bg-opacity-60" />
 
   {/* Conteúdo sobre a imagem */}
-  <div className="absolute bottom-10 left-40 z-10 text-left max-w-xl">
+  <div className="absolute bottom-10 w-full z-10">
+  <div className="container max-w-5xl text-left pl-4 md:pl-10 lg:pl-20">
     <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
       Planos de Saúde para Todas as Fases da Vida
     </h1>
@@ -342,6 +343,8 @@ return (
       className="bg-accent text-primary font-semibold px-8 py-4 rounded-full shadow hover:-translate-y-1 transition"
     />
   </div>
+</div>
+
 </section>
 
 

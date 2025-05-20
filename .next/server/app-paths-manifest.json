@@ -1,14 +1,9 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
-  "/api/lead/route": "app/api/lead/route.js",
-  "/page": "app/page.js",
-  "/financiamentos/page": "app/financiamentos/page.js",
-  "/politica-privacidade/page": "app/politica-privacidade/page.js",
-  "/consorcios/page": "app/consorcios/page.js",
-  "/quem-somos/page": "app/quem-somos/page.js",
-  "/investimentos/page": "app/investimentos/page.js",
   "/seguros/page": "app/seguros/page.js",
+  "/seguros/resp-civil/page": "app/seguros/resp-civil/page.js",
+  "/financiamentos/page": "app/financiamentos/page.js",
   "/saude/page": "app/saude/page.js",
-  "/termo-uso/page": "app/termo-uso/page.js",
-  "/seguros/resp-civil/page": "app/seguros/resp-civil/page.js"
+  "/investimentos/page": "app/investimentos/page.js",
+  "/page": "app/page.js"
 }

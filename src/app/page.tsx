@@ -67,9 +67,9 @@ export default function Home() {
   </div>
 
   {/* Seta animada apontando para baixo */}
-  <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-20">
-    <span className="animate-bounce text-white text-4xl sm:text-5xl drop-shadow-lg">&#x2193;</span>
-  </div>
+  <div className="opacity-0 animate-fade-in-up animation-delay-700 w-full max-w-full px-4 sm:px-6 md:px-0">
+  <FormularioPopup />
+</div>
 </section>
 
 

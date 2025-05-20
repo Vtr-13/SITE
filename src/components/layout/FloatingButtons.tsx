@@ -11,7 +11,8 @@ export default function FloatingButtons() {
         className="w-16 h-16 rounded-full bg-white shadow-xl hover:scale-105 transition-transform duration-300 flex items-center justify-center"
         title="Fale via WhatsApp"
       >
-        <img src="/images/whatsapp.svg" alt="WhatsApp" className="w-20 h-20" />
+        <img src="/images/whatsapp.svg" alt="WhatsApp" className="w-12 h-12" />
+
       </a>
 
       {/* Botão Formulário */}
@@ -20,7 +21,7 @@ export default function FloatingButtons() {
         className="cursor-pointer w-16 h-16 rounded-full bg-white shadow-xl hover:scale-105 transition-transform duration-300 flex items-center justify-center"
         title="Solicite sua cotação"
       >
-        <img src="/images/formulario.svg" alt="Formulário" className="w-20 h-20" />
+        <img src="/images/formulario.svg" alt="Formulário" className="w-12 h-12" />
       </button>
     </div>
   )
