@@ -4,7 +4,7 @@ import './globals.css'
 
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
-import FloatingButtons from '@/components/layout/FloatingButtons' // ✅ ajuste o caminho se necessário
+import FloatingButtons from '@/components/forms/FloatingButtons' // ✅ ajuste o caminho se necessário
 
 export const viewport: Viewport = {
   width: 'device-width',

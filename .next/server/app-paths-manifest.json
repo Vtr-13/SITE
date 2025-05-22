@@ -1,7 +1,7 @@
 {
+  "/_not-found/page": "app/_not-found/page.js",
   "/page": "app/page.js",
-  "/investimentos/page": "app/investimentos/page.js",
   "/seguros/page": "app/seguros/page.js",
-  "/consorcios/page": "app/consorcios/page.js",
-  "/seguros/resp-civil/page": "app/seguros/resp-civil/page.js"
+  "/seguros/resp-civil/page": "app/seguros/resp-civil/page.js",
+  "/consorcios/page": "app/consorcios/page.js"
 }

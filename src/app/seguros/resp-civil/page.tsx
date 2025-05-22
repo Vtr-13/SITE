@@ -5,13 +5,15 @@ import Image from 'next/image'
 import Link from 'next/link'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
-import FormularioPopup from '@/components/layout/FormularioPopup'
+import FormPopup from '@/components/forms/FormPopup'
+
 
 const profissionais = [
   {
   id: 'rc-medicos',
   title: 'MÉDICOS',
   desc: 'Cobertura completa para médicos contra erros técnicos, omissões e imperícia. Ideal para clínicos, cirurgiões, anestesistas e demais especialidades médicas. Segurança jurídica e tranquilidade para sua atuação profissional.',
+  produtoId:'rc_medico', 
   bullets: [
     '• • • DESCRIÇÃO',
     'O Seguro de Responsabilidade Civil Profissional para Médicos oferece proteção jurídica contra processos decorrentes de falhas involuntárias na prática médica.',
@@ -45,6 +47,7 @@ const profissionais = [
   id: 'rc-advogados',
   title: 'ADVOGADOS',
   desc: 'Proteção jurídica contra falhas profissionais na advocacia. Ideal para advogados autônomos, sócios de escritórios ou profissionais de departamentos jurídicos. Cobertura contra erros técnicos, omissões e má condução de processos.',
+  produtoId:'rc_advogado',
   bullets: [
     '• • • DESCRIÇÃO',
     'O Seguro de Responsabilidade Civil Profissional para Advogados é uma proteção essencial contra processos relacionados a falhas na prestação de serviços jurídicos.',
@@ -80,6 +83,7 @@ const profissionais = [
   id: 'rc-engenheiros',
   title: 'ENGENHEIROS',
   desc: 'Cobertura essencial para engenheiros contra falhas técnicas, erros de projeto e execução. Segurança jurídica e tranquilidade para profissionais autônomos, empresas e responsáveis técnicos.',
+  produtoId:'rc_engenheiro',
   bullets: [
     '• • • DESCRIÇÃO',
     'O Seguro de Responsabilidade Civil Profissional para Engenheiros oferece proteção contra prejuízos causados por erros, omissões ou falhas técnicas durante o exercício da engenharia.',
@@ -114,6 +118,7 @@ const profissionais = [
   id: 'rc-enfermeiros',
   title: 'ENFERMEIROS',
   desc: 'Proteção contra falhas, omissões e erros na assistência de enfermagem. Ideal para profissionais que atuam em hospitais, clínicas, home care ou como autônomos. Segurança jurídica e respaldo para o seu exercício profissional.',
+  produtoId:'rc_enfermeiros',   
   bullets: [
     '• • • DESCRIÇÃO',
     'O Seguro de Responsabilidade Civil Profissional para Enfermeiros oferece proteção contra ações judiciais, reclamações e pedidos de indenização causados por falhas no exercício da enfermagem.',
@@ -149,6 +154,7 @@ const profissionais = [
   id: 'rc-psicologos',
   title: 'PSICÓLOGOS',
   desc: 'Cobertura contra falhas na conduta terapêutica, omissões e erros em avaliações. Segurança para psicólogos clínicos, organizacionais, escolares e hospitalares. Resguarde sua atuação com tranquilidade e respaldo jurídico.',
+  produtoId:'rc_psicologos', 
   bullets: [
     '• • • DESCRIÇÃO',
     'O Seguro de Responsabilidade Civil Profissional para Psicólogos oferece proteção contra ações judiciais ou reclamações por falhas na prestação de serviços psicológicos.',
@@ -183,6 +189,7 @@ const profissionais = [
   id: 'rc-dentistas',
   title: 'DENTISTAS',
   desc: 'Cobertura essencial contra erros em procedimentos odontológicos, falhas técnicas e complicações estéticas. Ideal para dentistas clínicos, especialistas e cirurgiões. Segurança jurídica e tranquilidade para o consultório.',
+  produtoId:'rc_dentistas', 
   bullets: [
     '• • • DESCRIÇÃO',
     'O Seguro de Responsabilidade Civil Profissional para Dentistas protege contra ações judiciais, reclamações e pedidos de indenização por erros ou omissões na prática odontológica.',
@@ -217,6 +224,7 @@ const profissionais = [
   id: 'rc-arquitetos',
   title: 'ARQUITETOS',
   desc: 'Proteção contra falhas em projetos arquitetônicos, erros técnicos e prejuízos causados a clientes. Ideal para arquitetos autônomos ou empresas. Segurança jurídica para sua assinatura profissional.',
+  produtoId:'rc_arquitetos', 
   bullets: [
     '• • • DESCRIÇÃO',
     'O Seguro de Responsabilidade Civil Profissional para Arquitetos protege contra ações judiciais e pedidos de indenização decorrentes de falhas na elaboração ou execução de projetos arquitetônicos.',
@@ -251,6 +259,7 @@ const profissionais = [
   id: 'rc-contadores',
   title: 'CONTADORES',
   desc: 'Proteção contra falhas em declarações, obrigações fiscais e contábeis. Ideal para contadores, auditores e consultores tributários. Segurança jurídica e financeira para sua atuação profissional.',
+  produtoId:'rc_contador',
   bullets: [
     '• • • DESCRIÇÃO',
     'O Seguro de Responsabilidade Civil Profissional para Contadores cobre prejuízos decorrentes de erros ou omissões em atividades contábeis, fiscais, trabalhistas ou patrimoniais prestadas a clientes.',
@@ -285,6 +294,7 @@ const profissionais = [
   id: 'rc-nutricionistas',
   title: 'NUTRICIONISTAS',
   desc: 'Cobertura para falhas em prescrição alimentar, omissões ou condutas técnicas equivocadas. Ideal para nutricionistas clínicos, esportivos e consultores. Segurança jurídica e respaldo em casos de responsabilização profissional.',
+  produtoId:'rc_nutricionistas', 
   bullets: [
     '• • • DESCRIÇÃO',
     'O Seguro de Responsabilidade Civil Profissional para Nutricionistas protege contra reclamações ou ações judiciais decorrentes de erros em orientações nutricionais, planos alimentares, suplementações ou omissões em condutas técnicas.',
@@ -319,6 +329,7 @@ const profissionais = [
   id: 'rc-veterinarios',
   title: 'VETERINÁRIOS',
   desc: 'Cobertura contra erros, omissões e falhas técnicas no atendimento veterinário. Ideal para clínicos, cirurgiões, especialistas e profissionais que atuam em pet shops, clínicas ou consultórios.',
+  produtoId:'rc_veterinarios', 
   bullets: [
     '• • • DESCRIÇÃO',
     'O Seguro de Responsabilidade Civil Profissional para Veterinários protege contra ações judiciais e pedidos de indenização relacionados a falhas na prestação de serviços médicos veterinários.',
@@ -353,6 +364,7 @@ const profissionais = [
   id: 'rc-corretores-imoveis',
   title: 'CORRETORES DE IMÓVEIS',
   desc: 'Proteção contra falhas na intermediação, omissões ou prejuízos causados a clientes. Ideal para corretores autônomos e imobiliárias. Garanta segurança jurídica e preserve sua reputação no mercado imobiliário.',
+  produtoId:'rc_corretores_imoveis',
   bullets: [
     '• • • DESCRIÇÃO',
     'O Seguro de Responsabilidade Civil Profissional para Corretores de Imóveis cobre erros, omissões e atos não intencionais que causem prejuízos a compradores, locatários ou proprietários durante a intermediação imobiliária.',
@@ -387,6 +399,7 @@ const profissionais = [
   id: 'rc-ti',
   title: 'PROFISSIONAIS DE TI',
   desc: 'Cobertura contra falhas técnicas, perda de dados, indisponibilidade de sistemas e omissões em projetos. Ideal para desenvolvedores, analistas, consultores e empresas de tecnologia.',
+  produtoId:'rc_ti',
   bullets: [
     '• • • DESCRIÇÃO',
     'O Seguro de Responsabilidade Civil Profissional para Profissionais de TI protege contra perdas causadas por falhas técnicas, omissões, indisponibilidade de sistemas ou erros em entregas digitais.',
@@ -439,15 +452,27 @@ export default function ResponsabilidadeCivil() {
           <div className="flip-card-front p-6 flex flex-col">
             <h3 className="text-xl font-semibold text-primary mb-3">{p.title}</h3>
             <p className="text-gray-700 mb-4 line-clamp-4">{p.desc}</p>
-            <div className="mt-auto flex flex-col gap-3">
-              <button className="inline-block bg-primary text-white hover:bg-accent hover:text-primary font-medium py-3 px-8 rounded-lg transition shadow-md hover:scale-105">Saiba mais</button>
-              <div onClick={(e) => e.stopPropagation()}>
-                <FormularioPopup
-                  buttonText="Solicitar Cotação"
-                  className="inline-block bg-accent/90 text- hover:bg-primary hover:text-white font-medium py-3 px-8 rounded-lg transition shadow-md"
-                />
-              </div>
-            </div>
+           /* --------- Card interno --------- */
+<div className="mt-auto flex flex-col gap-3">
+  <button
+    className="btn-primary"
+    
+  >
+    Saiba mais
+  </button>
+
+  {/* Abre o formulário certo */}
+  <div onClick={(e) => e.stopPropagation()}>
+    <FormPopup
+      segmento="seguros"
+      produtoId={p.produtoId}      
+      buttonText="Solicitar Cotação"
+      className="btn-accent"
+    />
+  </div>
+</div>
+
+
           </div>
 
           {/* VERSO */}
@@ -491,11 +516,11 @@ export default function ResponsabilidadeCivil() {
               </ul>
 
               <Link
-                href="#cotacao"
+                href="#profissoes"
                 onClick={() => setFlipped(null)}
                 className="inline-block bg-accent text-primary font-semibold px-6 py-3 rounded-full shadow hover:scale-105 transition-transform"
               >
-                Solicitar cotação
+                X FECHAR
               </Link>
             </div>
           </div>
@@ -528,16 +553,22 @@ export default function ResponsabilidadeCivil() {
     <p className="text-xl text-white/80 max-w-2xl mb-8">
       Proteção contra falhas, omissões e processos judiciais para profissionais que atuam com responsabilidade técnica.
     </p>
-    <FormularioPopup
-      buttonText="Simular agora"
-      className="inline-block bg-primary text-white hover:bg-accent hover:text-primary font-medium px-8 py-3 rounded-lg transition shadow-md"
-    />
+               <Link
+                href="#profissoes"
+                onClick={() => setFlipped(null)}
+                 className="inline-block bg-accent/100 text-white hover:bg-primary hover:text-white font-medium py-3 px-8 rounded-lg transition shadow-md"
+              >
+                Solicitar cotação
+              </Link>
+
+
+
   </div>
 </section>
 
 
 
-      <section className="py-16" data-aos="fade-up">
+      <section id="profissoes" className="py-16" data-aos="fade-up">
         <div className="container mx-auto px-6">
           <h2 className="text-3xl font-semibold text-center mb-12">PROFISSIONAIS ATENDIDOS </h2>
           <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 auto-rows-fr">
@@ -557,11 +588,8 @@ export default function ResponsabilidadeCivil() {
           <p className="text-white/80 mb-8 max-w-xl mx-auto">
             Solicite sua cotação personalizada e conte com o suporte da ARJ Prime para garantir sua tranquilidade profissional.
           </p>
-          {/* Substitua o antigo botão por isto abaixo: */}
-             <FormularioPopup
-              buttonText="Simular agora"
-              className="inline-block bg-accent/100 text-accent hover:bg-primary hover:text-white font-medium py-3 px-8 rounded-lg transition shadow-md"
-            />
+      
+
         </div>
      </section>
 <div className="h-10" />  {/* Espaço no final */}

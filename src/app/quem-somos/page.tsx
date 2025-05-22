@@ -130,7 +130,7 @@ export default function Page() {
     Fale com um consultor da ARJ PRIME e receba uma orientação personalizada para proteger e impulsionar seu patrimônio.
   </p>
 
-  {/* Substitua o antigo botão por isto abaixo: */}
+  {/* Botão popup: */}
    <FormularioPopup
     buttonText="Solicitar Cotação"
     className="inline-block bg-accent/100 text-accent hover:bg-primary hover:text-white font-medium py-3 px-8 rounded-lg transition shadow-md"

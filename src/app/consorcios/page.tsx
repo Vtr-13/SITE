@@ -19,6 +19,7 @@ import 'swiper/css/autoplay';
 import { useEffect, useState } from "react"
 import AOS from "aos"
 import "aos/dist/aos.css"
+import FormularioPopup from '@/components/layout/FormularioPopup' // ajuste o caminho conforme sua estrutura
 
 export default function ConsorcioPage() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -109,13 +110,12 @@ useEffect(() => {
             </ul>
 
             <div className="flex flex-col gap-4 sm:flex-row">
-              <Link
-                href={{ hash: 'contato' }}
+              {/* Simulador de Consórcio 
+<FormularioPopup
+  segmento="consorcios"
+  buttonText="Simular Consórcio"
                 className="inline-block bg-accent text-white hover:bg-primary hover:text-white font-medium py-3 px-8 rounded-lg transition shadow-md hover:scale-105"
-              >
-                SIMULE AGORA
-              </Link>
-              
+       />*/}
             </div>
           </div>
         </div>

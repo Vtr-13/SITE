@@ -234,6 +234,29 @@ h1, h2, h3, h4, h5, h6 {
   overflow: auto;
 }
 
+
+
+/* Botão escuro (Saiba mais) */
+.btn-primary {
+  @apply inline-block font-medium py-3 px-8 rounded-lg shadow-md
+          transition transform duration-200
+          bg-primary text-white
+          hover:bg-accent hover:text-primary
+          hover:scale-105;
+}
+
+/* Botão dourado (Solicitar Cotação) */
+.btn-accent {
+  @apply inline-block font-medium py-3 px-8 rounded-lg shadow-md
+          transition transform duration-200
+          bg-accent text-primary
+          hover:bg-primary hover:text-white
+          hover:scale-105;
+}
+
+
+
+
 /* escurece fundo com overlay */
 .flip-card.is-flipped::before {
   content: "";

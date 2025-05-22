@@ -7,7 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import FormularioPopup from '@/components/layout/FormularioPopup' // ajuste o caminho conforme sua estrutura
+import FormPopup from '@/components/forms/FormPopup' // ajuste o caminho conforme sua estrutura
 
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -15,6 +15,19 @@ import { Autoplay, Pagination, EffectFade } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/pagination";
+
+import { formsConfig } from '@/components/forms/formsConfig'
+
+export type ProdutoId = keyof typeof formsConfig
+
+type Ramo = {
+  nome: string
+  desc: string
+  rota: string
+  icone: string
+  bullets: string[]
+  produtoId?: ProdutoId   // opcional para cards que só redirecionam
+}
 
 /* ------------------- DADOS ESTÁTICOS ------------------- */
 
@@ -63,6 +76,7 @@ const ramos = [
     icone: "/images/seguros/icons/vida.svg",
     nome: "VIDA",
     desc: "Garanta o futuro da sua família com proteção financeira em casos de morte, doenças graves ou invalidez. Tranquilidade em todas as fases da vida.",
+    produtoId: 'vida',
     bullets: [
     "• • • TIPOS DE SEGURO DE VIDA",
     "Seguro Individual: proteção exclusiva para você ou pessoa específica",
@@ -109,6 +123,7 @@ const ramos = [
   icone: "/images/seguros/icons/empresarial.svg",
   nome: "EMPRESARIAL",
   desc: "Segurança patrimonial completa para sua empresa, com coberturas contra incêndio, roubo, danos elétricos e responsabilidade civil.",
+  produtoId: 'empresarial',
   bullets: [
     "• • • TIPOS DE EMPRESA ATENDIDOS",
     "Comércios, escritórios, clínicas e consultórios",
@@ -146,6 +161,7 @@ const ramos = [
   icone: "/images/seguros/icons/transportes.svg",
   nome: "TRANSPORTES",
   desc: "Cobertura completa para mercadorias transportadas por rodovias, ferrovias, navios ou aeronaves. Segurança em todas as etapas da carga.",
+  produtoId: 'transportes',
   bullets: [
     "• • • TIPOS DE TRANSPORTE COBERTOS",
     "Transporte rodoviário nacional de cargas",
@@ -183,6 +199,7 @@ const ramos = [
   icone: "/images/seguros/icons/fianca.svg",
   nome: "FIANÇA LOCATÍCIA",
   desc: "Substitua o fiador ou caução e alugue com tranquilidade. Garantia de pagamento e proteção contra inadimplência.",
+  produtoId: 'fianca',
   bullets: [
     "• • • O QUE É O SEGURO FIANÇA?",
     "É uma garantia locatícia que substitui fiador ou caução",
@@ -218,6 +235,7 @@ const ramos = [
   icone: "/images/seguros/icons/garantias.svg",
   nome: "GARANTIAS",
   desc: "Assegure o cumprimento de contratos, licitações e obrigações legais com segurança e credibilidade para sua empresa.",
+  produtoId: 'garantia',
   bullets: [
     "• • • TIPOS DE SEGURO GARANTIA",
     "Garantia Contratual: garante a execução de contratos de obras, fornecimento ou serviços",
@@ -254,6 +272,7 @@ const ramos = [
   icone: "/images/seguros/icons/viagem.svg",
   nome: "VIAGEM",
   desc: "Viaje com segurança e tranquilidade. Cobertura médica, extravio de bagagem e assistência em todo o mundo.",
+  produtoId: 'viagem',
   bullets: [
     "• • • TIPOS DE VIAGEM ATENDIDAS",
     "Viagens nacionais e internacionais",
@@ -293,6 +312,7 @@ const ramos = [
     icone: "/images/seguros/icons/residencial.svg",
     nome: "RESIDENCIAL",
     desc: "Proteja seu lar contra incêndio, roubo, desastres naturais e imprevistos do dia a dia. Segurança completa para casas e apartamentos.",
+    produtoId: 'residencial',
     bullets:  [
     "• • • TIPOS DE SEGURO RESIDENCIAL",
     "Residencial Habitual: proteção para sua moradia principal",
@@ -330,6 +350,7 @@ const ramos = [
     icone: "/images/seguros/icons/condominio.svg",
     nome: "CONDOMÍNIO",
     desc: "Cobertura obrigatória e completa para proteger áreas comuns, estrutura e funcionários do seu condomínio residencial ou comercial.",
+    produtoId: 'condominio',
     bullets: [
     "• • • TIPOS DE CONDOMÍNIO ATENDIDOS",
     "Condomínios residenciais horizontais e verticais",
@@ -365,6 +386,7 @@ const ramos = [
     icone: "/images/seguros/icons/auto.svg",
     nome: "AUTO",
     desc: "Seu carro protegido contra acidentes, furtos, colisões e muito mais. Tranquilidade, assistência 24h e cobertura completa para você dirigir com segurança todos os dias.",
+    produtoId: 'auto',
     bullets: [
     "• • • TIPOS DE SEGURO AUTO",
     "Seguro Compreensivo: cobre colisões, roubos, incêndios e danos a terceiros",
@@ -404,6 +426,7 @@ const ramos = [
     icone: "/images/seguros/icons/motos.svg",
     nome: "MOTOS",
     desc: "Proteja sua moto contra roubo, colisão, incêndio e muito mais. Assistência 24h, cobertura para terceiros e planos sob medida para seu perfil de uso.",
+    produtoId: 'motos',
     bullets: [
     "• • • TIPOS DE SEGURO DE MOTOS",
     "Seguro Compreensivo: cobre colisões, roubos, furtos, incêndios e danos a terceiros",
@@ -441,6 +464,7 @@ const ramos = [
   icone: "/images/seguros/icons/cyber.svg",
   nome: "CYBER",
   desc: "Proteja sua empresa contra vazamentos de dados, ataques virtuais e perdas financeiras causadas por crimes cibernéticos.",
+  produtoId: 'cyber',
   bullets: [
     "• • • O QUE É O SEGURO CYBER?",
     "Seguro especializado em proteger empresas contra riscos digitais e cibernéticos",
@@ -536,9 +560,9 @@ function Card({
   flipped,
   setFlipped,
 }: {
-  ramo: (typeof ramos)[number];
-  flipped: string | null;
-  setFlipped: (v: string | null) => void;
+  ramo: Ramo
+  flipped: string | null
+  setFlipped: (v: string | null) => void
 }) {
   const isOpen = flipped === ramo.nome;
 
@@ -556,25 +580,39 @@ function Card({
           <h3 className="text-xl font-semibold text-primary mb-3">{ramo.nome}</h3>
           <p className="text-gray-600 mb-4">{ramo.desc}</p>
           <div className="mt-auto flex flex-col gap-3">
-  {ramo.nome === "RESPONSABILIDADE CIVIL PROFISSIONAL" ? (
-  <Link
-    href="/seguros/resp-civil"
-    className="inline-block bg-primary text-white hover:bg-accent hover:text-primary font-medium py-3 px-8 rounded-lg transition shadow-md hover:scale-105"
-    onClick={(e) => e.stopPropagation()}
-  >
-    Saiba mais
-  </Link>
-) : (
-  <button className="inline-block bg-primary text-white hover:bg-accent hover:text-primary font-medium py-3 px-8 rounded-lg transition shadow-md hover:scale-105">Saiba mais</button>
-)}
 
-  <div onClick={(e) => e.stopPropagation()}>
-  <FormularioPopup
-    buttonText="Solicitar Cotação"
-    className="inline-block bg-accent/90 text-accent hover:bg-primary hover:text-white font-medium py-3 px-8 rounded-lg transition shadow-md"
-  />
-</div>
 
+ {/* ———  SAIBA MAIS  ——— */}
+  {ramo.nome === 'RESPONSABILIDADE CIVIL PROFISSIONAL' ? (
+    <Link
+      href="/seguros/resp-civil"
+      className="btn-primary"
+      onClick={(e) => e.stopPropagation()}   /* mantém, pois não queremos virar o card */
+    >
+      Saiba mais
+    </Link>
+  ) : (
+    <button
+      className="btn-primary"
+      /*  ⬇️  RETIRE esta linha:
+      onClick={(e) => e.stopPropagation()}
+      */
+    >
+      Saiba mais
+    </button>
+  )}
+
+  {/* ———  COTAÇÃO  ——— */}
+  {ramo.produtoId && (
+    <div onClick={(e) => e.stopPropagation()}>
+      <FormPopup
+        segmento="seguros"
+        produtoId={ramo.produtoId}
+        buttonText="Solicitar Cotação"
+        className="btn-accent"
+      />
+    </div>
+  )}
 </div>
 
         </div>
@@ -621,7 +659,7 @@ function Card({
               onClick={() => setFlipped(null)}
               className="inline-block bg-accent text-primary font-semibold px-6 py-3 rounded-full shadow hover:scale-105 transition-transform"
             >
-              Fazer cotação
+              X FECHAR
             </Link>
           </div>
         </div>
@@ -669,12 +707,19 @@ export default function Page() {
   <p className="max-w-xl mb-8 text-base md:text-xl" data-aos="fade-up" data-aos-delay="150">
     Proteja o que realmente importa com o atendimento premium da ARJ PRIME.
   </p>
-  <FormularioPopup
-  buttonText="Solicitar Cotação"
-  className="inline-block bg-accent/100 text-white hover:bg-primary hover:text-white font-medium py-3 px-8 rounded-lg transition shadow-md"
-/>
+  {/* Cotação de Seguro – já abre no bloco “seguros” */}
+              <Link
+                href="#ramos"
+                onClick={() => setFlipped(null)}
+                 className="inline-block bg-accent/100 text-white hover:bg-primary hover:text-white font-medium py-3 px-8 rounded-lg transition shadow-md"
+              >
+                Solicitar cotação
+              </Link>
 </div>
 
+
+
+             
             </SwiperSlide>
           ))}
         </Swiper>
@@ -813,42 +858,6 @@ export default function Page() {
       ))}
     </div>
   </div>
-</section>
-
-
-
-      {/* FORMULÁRIO --------------------------------------------------- */}
-      <section className="py-20 bg-primary/90 text-white" id="cotacao">
-        <div className="max-w-4xl mx-auto px-6">
-          <h2 className="text-center text-3xl md:text-4xl font-semibold mb-8" data-aos="fade-up">
-            <span className="text-white"> SOLICITE SUA COTÇÃO</span>
-          </h2>
-
-          <form
-            action="https://formsubmit.co/contato@arjprime.com.br"
-            method="POST"
-            className="grid sm:grid-cols-2 gap-6"
-            data-aos="fade-up" data-aos-delay="150"
-          >
-            <input type="text" name="nome" placeholder="Seu nome" required
-              className="p-4 rounded bg-white text-primary placeholder:text-primary/60" />
-            <input type="email" name="email" placeholder="Seu e-mail" required
-              className="p-4 rounded bg-white text-primary placeholder:text-primary/60" />
-            <input type="tel" name="telefone" placeholder="Telefone/WhatsApp" required
-              className="p-4 rounded bg-white text-primary placeholder:text-primary/60" />
-            <select name="ramo" required className="p-4 rounded bg-white text-primary">
-              <option value="">Tipo de Seguro</option>
-              {ramos.map(r => (<option key={r.nome}>{r.nome}</option>))}
-            </select>
-            <textarea name="mensagem" rows={4} placeholder="Mensagem"
-              className="sm:col-span-2 p-4 rounded bg-white text-primary placeholder:text-primary/60" />
-            <button type="submit"
-              className="sm:col-span-2 bg-accent text-primary font-semibold py-4 rounded-full hover:-translate-y-0.5 transition">
-              Enviar
-            </button>
-          </form>
-        </div>
-      </section>
-    </>
+</section>    </>
   );
 }
