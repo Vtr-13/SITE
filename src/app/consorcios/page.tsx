@@ -19,11 +19,25 @@ import 'swiper/css/autoplay';
 import { useEffect, useState } from "react"
 import AOS from "aos"
 import "aos/dist/aos.css"
-import FormularioPopup from '@/components/layout/FormularioPopup' // ajuste o caminho conforme sua estrutura
+import SessaoFormularioConsorcio from '@/components/forms/SessaoFormularioConsorcio/SessaoFormularioConsorcio'
+import { useRef } from 'react'
+
 
 export default function ConsorcioPage() {
+  const [flipped, setFlipped] = useState<string | null>(null);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
+const formularioRef = useRef<HTMLDivElement | null>(null)
+
+function scrollParaFormularioGrupo(grupo: string) {
+  const evento = new CustomEvent('abrir-grupo-consorcio', { detail: grupo })
+  window.dispatchEvent(evento)
+  setTimeout(() => {
+    if (formularioRef.current) {
+      formularioRef.current.scrollIntoView({ behavior: 'smooth' })
+    }
+  }, 100)
+}
 
   const faqs = [
     {
@@ -110,12 +124,15 @@ useEffect(() => {
             </ul>
 
             <div className="flex flex-col gap-4 sm:flex-row">
-              {/* Simulador de Consórcio 
-<FormularioPopup
-  segmento="consorcios"
-  buttonText="Simular Consórcio"
-                className="inline-block bg-accent text-white hover:bg-primary hover:text-white font-medium py-3 px-8 rounded-lg transition shadow-md hover:scale-105"
-       />*/}
+              {/* Simulador de Consórcio*/}
+                  <Link
+                       href="#tipos-consorcio"
+                       onClick={() => setFlipped(null)}
+                        className="inline-block bg-accent/100 text-white hover:bg-primary hover:text-white font-medium py-3 px-8 rounded-lg transition shadow-md"
+                     >
+                       FAÇA UMA SIMULAÇÃO
+                     </Link>    
+        
             </div>
           </div>
         </div>
@@ -228,93 +245,156 @@ useEffect(() => {
       </section>
 
       {/* ------------------------------------------------------------------ */}
-      {/* TIPOS DE CONSÓRCIO                                                */}
-      {/* ------------------------------------------------------------------ */}
-      <section
-        id="tipos-consorcio"
-        className="bg-offwhite py-20 text-primary scroll-mt-20"
+{/* TIPOS DE CONSÓRCIO                                                */}
+{/* ------------------------------------------------------------------ */}
+<section
+  id="tipos-consorcio"
+  className="bg-offwhite py-20 text-primary scroll-mt-20"
+>
+  <div className="container mx-auto px-4">
+    <header className="mx-auto mb-14 max-w-3xl text-center">
+      <h2 className="font-heading text-4xl font-bold">
+        Compare os <span className="text-accent">tipos de consórcio</span> disponíveis
+      </h2>
+      <p className="mt-4 text-lg text-primary/80">
+        Encontre a melhor solução para conquistar seu carro, imóvel, serviço ou equipamento com parcelas acessíveis e prazos flexíveis.
+      </p>
+    </header>
+
+    <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+      {/* IMÓVEIS */}
+      <article
+  itemScope
+  itemType="https://schema.org/FinancialProduct"
+  className="group relative rounded-xl bg-white p-8 shadow-sm border border-transparent transition-all duration-200 hover:-translate-y-1 hover:border-accent/90 hover:bg-primary/5 hover:shadow-lg
+ cursor-pointer"
+        onClick={() => scrollParaFormularioGrupo('IMÓVEIS')}
       >
-        <div className="container mx-auto px-4">
-          <div className="mx-auto mb-14 max-w-3xl text-center">
-            <h2 className="font-heading text-4xl font-bold">
-              Escolha o <span className="text-accent">tipo de crédito</span>{' '}
-              ideal
-            </h2>
-            <p className="mt-4 text-lg text-primary/80">
-              Planos flexíveis para cada objetivo — do primeiro carro ao
-              investimento em imóveis.
-            </p>
-          </div>
+        <img
+          src="images/consorcios/money.svg"
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          width={40}
+          height={40}
+          className="mb-6"
+        />
+        <h3 itemProp="name" className="mb-3 text-xl font-semibold">
+          Consórcio Imobiliário
+        </h3>
+        <p itemProp="description" className="mb-6 text-primary/80">
+          Adquira, reforme ou construa seu imóvel com cartas de crédito entre R$ 200 mil e R$ 1 milhão, em até 200 meses.
+        </p>
+        <span
+          itemProp="url"
+          className="inline-block font-medium text-accent underline underline-offset-2 transition-colors duration-150 group-hover:text-accent/80"
+        >
+          Simular consórcio de imóvel →
+        </span>
+      </article>
 
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-            {/* IMÓVEIS */}
-            <div className="group relative rounded-xl bg-white p-8 shadow-sm transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg">
-              <HomeIcon className="h-12 w-12 text-accent" />
-              <h3 className="mt-4 text-xl font-semibold">Imóveis</h3>
-              <p className="mt-3 text-primary/70">
-                R$ 200 mil – 1 milhão em até 200 meses para comprar, construir
-                ou reformar.
-              </p>
-              <Link
-                href={{ hash: 'contato', query: { tipo: 'Imóveis' } }}
-                className="mt-6 inline-flex items-center font-medium text-accent hover:underline"
-              >
-                Quero este crédito&nbsp;→
-              </Link>
-            </div>
+      {/* VEÍCULOS */}
+      <article
+        itemScope
+        itemType="https://schema.org/FinancialProduct"
+        className="group relative rounded-xl bg-white p-8 shadow-sm border border-transparent transition-all duration-200 hover:-translate-y-1 hover:border-accent/90 hover:bg-primary/5 hover:shadow-lg
+ cursor-pointer"
+        onClick={() => scrollParaFormularioGrupo('VEÍCULOS')}
+      >
+        <img
+          src="images/consorcios/money.svg"
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          width={40}
+          height={40}
+          className="mb-6"
+        />
+        <h3 itemProp="name" className="mb-3 text-xl font-semibold">
+          Consórcio de Veículos
+        </h3>
+        <p itemProp="description" className="mb-6 text-primary/80">
+          Planeje a compra do seu carro, moto ou utilitário com parcelas acessíveis e cartas de R$ 30 mil a R$ 300 mil.
+        </p>
+        <span
+          itemProp="url"
+          className="inline-block font-medium text-accent underline underline-offset-2 transition-colors duration-150 group-hover:text-accent/80"
+        >
+          Simular consórcio de veículo →
+        </span>
+      </article>
 
-            {/* VEÍCULOS */}
-            <div className="group relative rounded-xl bg-white p-8 shadow-sm transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg">
-              <TruckIcon className="h-12 w-12 text-accent" />
-              <h3 className="mt-4 text-xl font-semibold">Veículos</h3>
-              <p className="mt-3 text-primary/70">
-                Cartas de R$ 30 mil a R$ 300 mil em até 84 meses para carro,
-                moto ou utilitário.
-              </p>
-              <Link
-                href={{ hash: 'contato', query: { tipo: 'Veículos' } }}
-                className="mt-6 inline-flex items-center font-medium text-accent hover:underline"
-              >
-                Quero este crédito&nbsp;→
-              </Link>
-            </div>
+      {/* SERVIÇOS */}
+      <article
+        itemScope
+        itemType="https://schema.org/FinancialProduct"
+        className="group relative rounded-xl bg-white p-8 shadow-sm border border-transparent transition-all duration-200 hover:-translate-y-1 hover:border-accent/90 hover:bg-primary/5 hover:shadow-lg
+ cursor-pointer"
+        onClick={() => scrollParaFormularioGrupo('SERVIÇOS E LAZER')}
+      >
+        <img
+          src="images/consorcios/money.svg"
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          width={40}
+          height={40}
+          className="mb-6"
+        />
+        <h3 itemProp="name" className="mb-3 text-xl font-semibold">
+          Consórcio de Serviços
+        </h3>
+        <p itemProp="description" className="mb-6 text-primary/80">
+          Pague cirurgias, festas, viagens ou cursos com valores de R$ 20 mil a R$ 120 mil.
+        </p>
+        <span
+          itemProp="url"
+          className="inline-block font-medium text-accent underline underline-offset-2 transition-colors duration-150 group-hover:text-accent/80"
+        >
+          Simular consórcio de serviços →
+        </span>
+      </article>
 
-            {/* SERVIÇOS */}
-            <div className="group relative rounded-xl bg-white p-8 shadow-sm transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg">
-              <AcademicCapIcon className="h-12 w-12 text-accent" />
-              <h3 className="mt-4 text-xl font-semibold">Serviços</h3>
-              <p className="mt-3 text-primary/70">
-                Pague cirurgias, festas, viagens ou intercâmbio com valores de
-                R$ 20 mil a R$ 120 mil.
-              </p>
-              <Link
-                href={{ hash: 'contato', query: { tipo: 'Serviços' } }}
-                className="mt-6 inline-flex items-center font-medium text-accent hover:underline"
-              >
-                Quero este crédito&nbsp;→
-              </Link>
-            </div>
+      {/* MÁQUINAS & PESADOS */}
+      <article
+        itemScope
+        itemType="https://schema.org/FinancialProduct"
+        className="group relative rounded-xl bg-white p-8 shadow-sm border border-transparent transition-all duration-200 hover:-translate-y-1 hover:border-accent/90 hover:bg-primary/5 hover:shadow-lg
+ cursor-pointer"
+        onClick={() => scrollParaFormularioGrupo('AGRO')}
+      >
+        <img
+         src="images/consorcios/money.svg"
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          width={40}
+          height={40}
+          className="mb-6"
+        />
+        <h3 itemProp="name" className="mb-3 text-xl font-semibold">
+          Consórcio de Máquinas e Equipamentos
+        </h3>
+        <p itemProp="description" className="mb-6 text-primary/80">
+          Financiamento inteligente para tratores, caminhões e máquinas pesadas. Cartas de até R$ 1,2 milhão.
+        </p>
+        <span
+          itemProp="url"
+          className="inline-block font-medium text-accent underline underline-offset-2 transition-colors duration-150 group-hover:text-accent/80"
+        >
+          Simular consórcio de máquinas →
+        </span>
+      </article>
+    </div>
+  </div>
+</section>
 
-            {/* MÁQUINAS & PESADOS */}
-            <div className="group relative rounded-xl bg-white p-8 shadow-sm transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg">
-              <Cog6ToothIcon className="h-12 w-12 text-accent" />
-              <h3 className="mt-4 text-xl font-semibold">
-                Máquinas&nbsp;&amp;&nbsp;Pesados
-              </h3>
-              <p className="mt-3 text-primary/70">
-                Até R$ 1,2 milhão para caminhões, tratores e equipamentos
-                agrícolas ou industriais.
-              </p>
-              <Link
-                href={{ hash: 'contato', query: { tipo: 'Pesados' } }}
-                className="mt-6 inline-flex items-center font-medium text-accent hover:underline"
-              >
-                Quero este crédito&nbsp;→
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+
+<div ref={formularioRef}>
+  <SessaoFormularioConsorcio />
+</div>
+
+
 
 {/* ------------------------------------------------------------------ */}
 {/* DEPOIMENTOS (Swiper)                                              */}

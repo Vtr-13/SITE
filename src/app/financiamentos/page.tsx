@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import FormularioPopup from "@/components/layout/FormularioPopup";
+import FormPopup from '@/components/forms/FormPopup';
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, EffectFade } from "swiper/modules";
@@ -26,6 +26,7 @@ const imagens = [
 const modalidades = [
   {
     id: "car-equity",
+    produtoId: 'car_equity',  
     nome: "CAR EQUITY",
     icone: "/images/financiamentos/icons/carequity.svg",
     desc: "Use seu carro como garantia e libere dinheiro rápido, com juros baixos e sem deixar de usá-lo. Crédito fácil, seguro e aprovado muito rapido.",
@@ -72,6 +73,7 @@ const modalidades = [
   
   {
   id: "home-equity",
+  produtoId: 'home_equity',
   nome: "HOME EQUITY",
   icone: "/images/financiamentos/icons/home.svg",
   desc: "Use seu imóvel como garantia e conquiste crédito com juros baixos e prazos longos, sem precisar vender sua casa. Liberação rápida e ideal para grandes projetos.",
@@ -120,6 +122,7 @@ const modalidades = [
 
   {
   id: "fin-imoveis",
+  produtoId: 'fin_imobiliario',
   nome: "FINANCIAMENTO IMOBILIÁRIO",
   icone: "/images/financiamentos/icons/imo.svg",
   desc: "Compre seu imóvel novo ou usado com as melhores condições do mercado. Financiamento facilitado, parcelas acessíveis e prazos estendidos.",
@@ -168,6 +171,7 @@ const modalidades = [
 
   {
   id: "fin-veiculos",
+  produtoId: 'fin_veiculos',
   nome: "FINANCIAMENTO DE VEÍCULOS",
   icone: "/images/financiamentos/icons/veiculo.svg",
   desc: "Compre seu carro, moto ou caminhão com aprovação rápida, parcelas acessíveis e até 100% de financiamento. Novos ou usados, sem burocracia.",
@@ -214,6 +218,7 @@ const modalidades = [
 }, 
 {
   id: "maquinas-equipamentos",
+  produtoId: 'maquinas_equipamentos',
   nome: "MÁQUINAS E EQUIPAMENTOS",
   icone: "/images/financiamentos/icons/maquinas.svg",
   desc: "Financie máquinas e equipamentos novos ou usados para modernizar sua empresa, aumentar a produtividade e expandir sua operação.",
@@ -260,6 +265,7 @@ const modalidades = [
 },
  {
   id: "capital-giro",
+  produtoId: 'capital_giro',
   nome: "CAPITAL DE GIRO",
   icone: "/images/financiamentos/icons/giro.svg",
   desc: "Crédito rápido para equilibrar o caixa da sua empresa, manter o fluxo financeiro saudável e impulsionar o crescimento com tranquilidade.",
@@ -411,12 +417,15 @@ function Card({ ramo, flipped, setFlipped }: {
   Saiba mais
 </button>
 
-            <div onClick={(e) => e.stopPropagation()}>
-              <FormularioPopup
-                buttonText="Solicitar Cotação"
-                className="inline-block bg-accent text-primary hover:bg-primary hover:text-white font-medium py-3 px-8 rounded-lg transition shadow-md hover:scale-105"
-              />
-            </div>
+          <div onClick={(e) => e.stopPropagation()}>
+  <FormPopup
+    segmento="financiamentos"
+    produtoId={ramo.produtoId}      // usa o campo que adicionamos
+    buttonText="Solicitar Cotação"
+    className="inline-block bg-accent text-primary hover:bg-primary hover:text-white font-medium py-3 px-8 rounded-lg transition shadow-md hover:scale-105"
+  />
+</div>
+
           </div>
         </div>
 
@@ -450,7 +459,7 @@ function Card({ ramo, flipped, setFlipped }: {
   }}
   className="inline-block bg-accent text-primary font-semibold px-6 py-3 rounded-full shadow hover:scale-105 transition-transform"
 >
-  Fazer Cotação
+  X FECHAR
 </button>
 
 
@@ -468,10 +477,25 @@ export default function Financiamentos() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
 
-  useEffect(() => {
-    AOS.init({ once: true });
-  }, []);
- 
+  /* 1️⃣  AOS: roda só uma vez ---------------------------------------- */
+useEffect(() => {
+  AOS.init({ once: true });
+}, []);
+
+/* 2️⃣  Bloqueia / libera a rolagem -------------------------------- */
+useEffect(() => {
+  const html = document.documentElement;
+  const body = document.body;
+
+  if (flipped) {
+    html.classList.add("overflow-hidden");              // remove scrollbar
+    body.classList.add("overflow-hidden", "touch-none"); // bloqueia gesto
+  } else {
+    html.classList.remove("overflow-hidden");
+    body.classList.remove("overflow-hidden", "touch-none");
+  }
+}, [flipped]);
+
 
 
 
@@ -515,10 +539,14 @@ export default function Financiamentos() {
     <p className="text-lg text-white/80 mb-6 drop-shadow-sm">
       Seis soluções sob medida — do <em>Car Equity</em> ao capital de giro.
     </p>
-    <FormularioPopup
-      buttonText="Simular agora"
-      className="inline-block bg-primary text-white hover:bg-accent hover:text-primary font-medium px-8 py-3 rounded-lg transition shadow-md"
-    />
+    <Link
+                href="#credito"
+                onClick={() => setFlipped(null)}
+                 className="inline-block bg-accent/100 text-white hover:bg-primary hover:text-white font-medium py-3 px-8 rounded-lg transition shadow-md"
+              >
+                SIMULAR AGORA
+              </Link>
+
   </div>
 </section>
 
@@ -527,7 +555,7 @@ export default function Financiamentos() {
       <section className="py-16" data-aos="fade-up">
         <div className="container mx-auto px-6">
           <h2 className="text-3xl font-semibold text-center mb-12">MODALIDADES DE CRÉDITO</h2>
-          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 auto-rows-fr">
+          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 auto-rows-fr" id="credito">
             {modalidades.map((m) => (
               <Card key={m.id} ramo={m} flipped={flipped} setFlipped={setFlipped} />
             ))}
@@ -620,46 +648,8 @@ export default function Financiamentos() {
       ))}
     </div>
   </div>
-</section>
-
+</section>     
       
-      <section id="formulario-cotacao" className="bg-primary py-16 px-4 md:px-0 text-offwhite">
-  <div className="max-w-2xl mx-auto">
-    <h2 className="text-3xl font-bold mb-6 text-center">SOLICITE SUA CORAÇÃO</h2>
-    <form className="space-y-4">
-      <input
-        type="text"
-        placeholder="Seu nome"
-        className="w-full border border-gray-300 rounded p-3"
-        required
-      />
-      <input
-        type="email"
-        placeholder="Seu e-mail"
-        className="w-full border border-gray-300 rounded p-3"
-        required
-      />
-      <input
-        type="tel"
-        placeholder="Seu telefone"
-        className="w-full border border-gray-300 rounded p-3"
-        required
-      />
-      <textarea
-        placeholder="Informações adicionais"
-        className="w-full border border-gray-300 rounded p-3"
-        rows={4}
-      ></textarea>
-      <button
-        type="submit"
-        className="bg-accent text-white font-semibold py-3 px-6 rounded hover:bg-primary transition"
-      >
-        Enviar Cotação
-      </button>
-    </form>
-  </div>
-</section>
-
     </main>
   );
 }

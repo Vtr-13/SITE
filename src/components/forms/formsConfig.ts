@@ -421,6 +421,157 @@ rc_enfermeiros: {
 },
 
 
+/* -------------------------------------------------------------------------- */
+/* FINANCIAMENTOS / CRÉDITO                                                   */
+/* -------------------------------------------------------------------------- */
+
+  /* === 1. CAR EQUITY ===================================================== */
+  car_equity: {
+    title: 'Car Equity – Crédito com Garantia de Veículo',
+    description:
+      'Use seu carro como garantia e libere dinheiro rápido com juros mais baixos.',
+    fields: [
+      { group: 'Dados pessoais', name: 'nome',      label: 'Nome completo',                           type: 'text',    required: true },
+      { group: 'Dados pessoais', name: 'cpf',       label: 'CPF',                                     type: 'text',    required: true },
+      { group: 'Dados pessoais', name: 'email',     label: 'E-mail',                                  type: 'email',   required: true },
+      { group: 'Dados pessoais', name: 'telefone',  label: 'Telefone / WhatsApp',                     type: 'tel',     required: true },
+
+      { group: 'Veículo',        name: 'marca',     label: 'Marca',                                   type: 'text',    required: true },
+      { group: 'Veículo',        name: 'modelo',    label: 'Modelo',                                  type: 'text',    required: true },
+      { group: 'Veículo',        name: 'ano',       label: 'Ano',                                     type: 'number',  required: true },
+      { group: 'Veículo',        name: 'valorFipe', label: 'Valor FIPE (R$)',                         type: 'number',  required: true },
+
+      { group: 'Crédito',        name: 'valorDesejado', label: 'Valor desejado (R$)',                 type: 'number',  required: true },
+      { group: 'Crédito',        name: 'prazo',        label: 'Prazo desejado (meses)',               type: 'number',  required: true },
+
+      { group: 'Observações',    name: 'observacoes', label: 'Observações adicionais',                type: 'textarea', required: false },
+    ],
+  },
+
+  /* === 2. HOME EQUITY ==================================================== */
+  home_equity: {
+    title: 'Home Equity – Crédito com Garantia de Imóvel',
+    description:
+      'Use seu imóvel como garantia e contrate crédito com juros baixos e prazos longos.',
+    fields: [
+      { group: 'Dados pessoais', name: 'nome',        label: 'Nome completo',           type: 'text',    required: true },
+      { group: 'Dados pessoais', name: 'cpf',         label: 'CPF',                     type: 'text',    required: true },
+      { group: 'Dados pessoais', name: 'email',       label: 'E-mail',                  type: 'email',   required: true },
+      { group: 'Dados pessoais', name: 'telefone',    label: 'Telefone / WhatsApp',     type: 'tel',     required: true },
+
+      { group: 'Imóvel',         name: 'tipoImovel',  label: 'Tipo de imóvel',          type: 'select',  required: true,
+        options: ['Casa', 'Apartamento', 'Terreno', 'Comercial'] },
+      { group: 'Imóvel',         name: 'valorImovel', label: 'Valor de mercado (R$)',   type: 'number',  required: true },
+      { group: 'Imóvel',         name: 'cidade',      label: 'Cidade do imóvel',        type: 'text',    required: true },
+      { group: 'Imóvel',         name: 'estado',      label: 'Estado',                  type: 'text',    required: true },
+
+      { group: 'Crédito',        name: 'valorDesejado', label: 'Valor desejado (R$)',   type: 'number',  required: true },
+      { group: 'Crédito',        name: 'prazo',         label: 'Prazo desejado (meses)', type: 'number',  required: true },
+
+      { group: 'Observações',    name: 'observacoes',   label: 'Observações adicionais', type: 'textarea', required: false },
+    ],
+  },
+
+  /* === 3. FINANCIAMENTO IMOBILIÁRIO ===================================== */
+  fin_imobiliario: {
+    title: 'Financiamento Imobiliário',
+    description:
+      'Compre seu imóvel com as melhores taxas e prazos do mercado.',
+    fields: [
+      { group: 'Dados pessoais',  name: 'nome',          label: 'Nome completo',          type: 'text',    required: true },
+      { group: 'Dados pessoais',  name: 'cpf',           label: 'CPF',                    type: 'text',    required: true },
+      { group: 'Dados pessoais',  name: 'email',         label: 'E-mail',                 type: 'email',   required: true },
+      { group: 'Dados pessoais',  name: 'telefone',      label: 'Telefone / WhatsApp',    type: 'tel',     required: true },
+      { group: 'Dados pessoais',  name: 'rendaMensal',   label: 'Renda mensal (R$)',      type: 'number',  required: true },
+
+      { group: 'Imóvel',          name: 'tipoImovel',    label: 'Tipo de imóvel',         type: 'select',  required: true,
+        options: ['Novo', 'Usado', 'Na planta', 'Terreno + construção'] },
+      { group: 'Imóvel',          name: 'valorImovel',   label: 'Valor do imóvel (R$)',   type: 'number',  required: true },
+      { group: 'Imóvel',          name: 'entrada',       label: 'Valor de entrada (R$)',  type: 'number',  required: false },
+
+      { group: 'Financiamento',   name: 'prazo',         label: 'Prazo (anos)',           type: 'number',  required: true },
+      { group: 'Financiamento',   name: 'sistema',       label: 'Sistema de amortização', type: 'select',  required: true,
+        options: ['SAC', 'PRICE'] },
+
+      { group: 'Observações',     name: 'observacoes',   label: 'Observações adicionais', type: 'textarea', required: false },
+    ],
+  },
+
+  /* === 4. FINANCIAMENTO DE VEÍCULOS ===================================== */
+  fin_veiculos: {
+    title: 'Financiamento de Veículos',
+    description:
+      'Crédito para carro, moto ou caminhão, novos ou usados, com aprovação rápida.',
+    fields: [
+      { group: 'Dados pessoais',  name: 'nome',        label: 'Nome completo',            type: 'text',    required: true },
+      { group: 'Dados pessoais',  name: 'cpf',         label: 'CPF',                      type: 'text',    required: true },
+      { group: 'Dados pessoais',  name: 'email',       label: 'E-mail',                   type: 'email',   required: true },
+      { group: 'Dados pessoais',  name: 'telefone',    label: 'Telefone / WhatsApp',      type: 'tel',     required: true },
+
+      { group: 'Veículo',         name: 'tipoVeiculo', label: 'Tipo de veículo',          type: 'select',  required: true,
+        options: ['Carro', 'Moto', 'Caminhão'] },
+      { group: 'Veículo',         name: 'valorVeiculo',label: 'Valor do veículo (R$)',    type: 'number',  required: true },
+      { group: 'Veículo',         name: 'anoModelo',   label: 'Ano / Modelo',             type: 'text',    required: true },
+
+      { group: 'Financiamento',   name: 'prazo',       label: 'Prazo (meses)',            type: 'number',  required: true },
+      { group: 'Financiamento',   name: 'entrada',     label: 'Entrada (R$)',             type: 'number',  required: false },
+
+      { group: 'Observações',     name: 'observacoes', label: 'Observações adicionais',   type: 'textarea', required: false },
+    ],
+  },
+
+  /* === 5. MÁQUINAS & EQUIPAMENTOS ====================================== */
+  maquinas_equipamentos: {
+    title: 'Financiamento de Máquinas e Equipamentos',
+    description:
+      'Crédito para aquisição ou modernização de máquinas novas ou usadas.',
+    fields: [
+      { group: 'Empresa',       name: 'razaoSocial', label: 'Razão social',          type: 'text',    required: true },
+      { group: 'Empresa',       name: 'cnpj',        label: 'CNPJ',                  type: 'text',    required: true },
+      { group: 'Empresa',       name: 'telefone',    label: 'Telefone',              type: 'tel',     required: true },
+      { group: 'Empresa',       name: 'email',       label: 'E-mail',                type: 'email',   required: true },
+
+      { group: 'Equipamento',   name: 'descricao',   label: 'Descrição do bem',      type: 'text',    required: true },
+      { group: 'Equipamento',   name: 'valor',       label: 'Valor do equipamento',  type: 'number',  required: true },
+      { group: 'Equipamento',   name: 'novoUsado',   label: 'Novo ou usado?',        type: 'select',  required: true,
+        options: ['Novo', 'Usado'] },
+
+      { group: 'Financiamento', name: 'prazo',       label: 'Prazo desejado (meses)', type: 'number',  required: true },
+
+      { group: 'Observações',   name: 'observacoes', label: 'Observações adicionais', type: 'textarea', required: false },
+    ],
+  },
+
+  /* === 6. CAPITAL DE GIRO ============================================== */
+  capital_giro: {
+    title: 'Capital de Giro',
+    description:
+      'Crédito rápido para fluxo de caixa, estoque ou expansão do negócio.',
+    fields: [
+      { group: 'Empresa',       name: 'razaoSocial',   label: 'Razão social',           type: 'text',    required: true },
+      { group: 'Empresa',       name: 'cnpj',          label: 'CNPJ',                   type: 'text',    required: true },
+      { group: 'Empresa',       name: 'telefone',      label: 'Telefone',               type: 'tel',     required: true },
+      { group: 'Empresa',       name: 'email',         label: 'E-mail',                 type: 'email',   required: true },
+      { group: 'Empresa',       name: 'faturamento',   label: 'Faturamento mensal (R$)',type: 'number',  required: true },
+
+      { group: 'Crédito',       name: 'valorDesejado', label: 'Valor desejado (R$)',    type: 'number',  required: true },
+      { group: 'Crédito',       name: 'prazo',         label: 'Prazo (meses)',          type: 'number',  required: true },
+
+      { group: 'Uso',           name: 'destino',       label: 'Destino do crédito',     type: 'select',  required: true,
+        options: ['Fluxo de caixa', 'Estoque', 'Reforma/expansão', 'Outros'] },
+
+      { group: 'Observações',   name: 'observacoes',   label: 'Observações adicionais', type: 'textarea', required: false },
+    ],
+  },
 
 
+
+
+
+
+  
 }
+
+
+
+

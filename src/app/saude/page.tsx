@@ -110,11 +110,26 @@ export default function Page() {
  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
 
-  useEffect(() => {
-    AOS.init({ once: true })
-    document.body.style.overflow = flipped ? 'hidden' : ''
-    return () => { document.body.style.overflow = '' }
-  }, [flipped])
+  /* 1️⃣  AOS: roda só uma vez ---------------------------------------- */
+useEffect(() => {
+  AOS.init({ once: true });
+}, []);
+
+/* 2️⃣  Bloqueia / libera a rolagem -------------------------------- */
+useEffect(() => {
+  const html = document.documentElement;
+  const body = document.body;
+
+  if (flipped) {
+    html.classList.add("overflow-hidden");              // remove scrollbar
+    body.classList.add("overflow-hidden", "touch-none"); // bloqueia gesto
+  } else {
+    html.classList.remove("overflow-hidden");
+    body.classList.remove("overflow-hidden", "touch-none");
+  }
+}, [flipped]);
+
+
 
   const beneficios = [
     { icon: ShieldCheckIcon, title: 'Isenção de Carência*', desc: 'Operadoras parceiras com carência zero para consultas, exames e procedimentos essenciais — ideal para quem precisa de uso imediato.' },

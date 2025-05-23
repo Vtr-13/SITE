@@ -654,13 +654,21 @@ function Card({
 </ul>
 
 
-            <Link
-              href="#cotacao"
-              onClick={() => setFlipped(null)}
-              className="inline-block bg-accent text-primary font-semibold px-6 py-3 rounded-full shadow hover:scale-105 transition-transform"
-            >
-              X FECHAR
-            </Link>
+             <button
+  onClick={(e) => {
+    e.stopPropagation();
+    setFlipped(null); // Fecha o card
+    setTimeout(() => {
+      const target = document.getElementById("formulario-cotacao");
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 100); // pequeno atraso para a animação de flip concluir antes de rolar
+  }}
+  className="inline-block bg-accent text-primary font-semibold px-6 py-3 rounded-full shadow hover:scale-105 transition-transform"
+>
+  X FECHAR
+</button>
           </div>
         </div>
       </div>
@@ -675,7 +683,20 @@ export default function Page() {
 
 
   useEffect(() => { AOS.init({ once: true }); }, []);
-  useEffect(() => { document.body.style.overflow = flipped ? "hidden" : ""; }, [flipped]);
+  useEffect(() => {
+  const html = document.documentElement;
+  const body = document.body;
+
+  if (flipped) {
+    // trava a rolagem e evita “bounce” no iOS
+    html.classList.add("overflow-hidden");
+    body.classList.add("overflow-hidden", "touch-none");
+  } else {
+    html.classList.remove("overflow-hidden");
+    body.classList.remove("overflow-hidden", "touch-none");
+  }
+}, [flipped]);
+
 
   return (
     <>
