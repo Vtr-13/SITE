@@ -1,6 +1,6 @@
-"use client"
+'use client'
 
-import { useState, useEffect, forwardRef } from 'react'
+import { useState, useEffect, useRef, forwardRef } from 'react'
 import { useForm } from 'react-hook-form'
 import * as Tabs from '@radix-ui/react-tabs'
 import { gruposConsorcio, camposConsorcio } from '@/components/forms/formsConfigConsorcio'
@@ -9,6 +9,7 @@ import './SessaoFormularioConsorcio.css'
 const SessaoFormularioConsorcio = forwardRef((_, ref) => {
   const [grupoAtivo, setGrupoAtivo] = useState(null)
   const [tipo, setTipo] = useState(null)
+  const formRef = useRef(null) // ✅ usado para rolar até o formulário
   const { register, handleSubmit, reset, formState: { errors } } = useForm()
 
   useEffect(() => {
@@ -24,6 +25,13 @@ const SessaoFormularioConsorcio = forwardRef((_, ref) => {
       window.removeEventListener('abrir-grupo-consorcio', aoSelecionarGrupo)
     }
   }, [])
+
+  // ✅ Rolar até o formulário assim que o tipo for selecionado
+  useEffect(() => {
+    if (tipo && formRef.current) {
+      formRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }, [tipo])
 
   const onSubmit = async (data) => {
     try {
@@ -43,7 +51,9 @@ const SessaoFormularioConsorcio = forwardRef((_, ref) => {
   return (
     <section id="form-consorcio" ref={ref} className="py-20 bg-offwhite text-primary">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-heading font-bold mb-6 text-center">QUEM PLANEJA CONQUISTA ! SIMULE SEU CONSÓRCIO</h2>
+        <h2 className="text-3xl font-heading font-bold mb-6 text-center">
+          QUEM PLANEJA CONQUISTA! SIMULE SEU CONSÓRCIO
+        </h2>
         <p className="text-center max-w-2xl mx-auto mb-10 text-gray-600">
           Escolha o tipo de consórcio e complete os dados para receber sua simulação.
         </p>
@@ -81,7 +91,11 @@ const SessaoFormularioConsorcio = forwardRef((_, ref) => {
         </Tabs.Root>
 
         {tipo && camposConsorcio[tipo] && (
-          <form onSubmit={handleSubmit(onSubmit)} className="mx-auto max-w-3xl space-y-6 px-4">
+          <form
+            ref={formRef}
+            onSubmit={handleSubmit(onSubmit)}
+            className="mx-auto max-w-3xl space-y-6 px-4"
+          >
             {camposConsorcio[tipo].map(c => (
               <div key={c.name}>
                 <label className="label">{c.label}</label>
@@ -113,6 +127,7 @@ const SessaoFormularioConsorcio = forwardRef((_, ref) => {
             ))}
 
             <button type="submit" className="btn-enviar" disabled={Object.keys(errors).length > 0}>
+              
               Enviar
             </button>
           </form>

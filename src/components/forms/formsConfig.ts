@@ -564,8 +564,145 @@ rc_enfermeiros: {
     ],
   },
 
+/* --------------------------------------------------------------------------
+   PLANOS DE SAÚDE
+   -------------------------------------------------------------------------- */
+saude_individual: {
+  title: 'Plano de Saúde – Individual / Familiar',
+  description: 'Dados para simulação de planos individuais ou familiares.',
+  fields: [
+    /* CONTATO */
+    { group: 'Contato', name: 'nome',        label: 'Nome completo',        type: 'text',  required: true },
+    { group: 'Contato', name: 'telefone',    label: 'Telefone / WhatsApp',  type: 'tel',   required: true },
+    { group: 'Contato', name: 'email',       label: 'E-mail',               type: 'email', required: true },
+    { group: 'Contato', name: 'cidade',      label: 'Cidade / UF',          type: 'text',  required: true },
 
+    /* BENEFICIÁRIOS */
+    { group: 'Beneficiários', name: 'qtdeVidas', label: 'Nº de pessoas',        type: 'number', required: true },
+    /* Distribuição etária – os 10 campos abaixo permitem aquele quadro que você mostrou */
+    { group: 'Distribuição', name: 'v00_18',   label: '00 a 18', type: 'number' },
+    { group: 'Distribuição', name: 'v19_23',   label: '19 a 23', type: 'number' },
+    { group: 'Distribuição', name: 'v24_28',   label: '24 a 28', type: 'number' },
+    { group: 'Distribuição', name: 'v29_33',   label: '29 a 33', type: 'number' },
+    { group: 'Distribuição', name: 'v34_38',   label: '34 a 38', type: 'number' },
+    { group: 'Distribuição', name: 'v39_43',   label: '39 a 43', type: 'number' },
+    { group: 'Distribuição', name: 'v44_48',   label: '44 a 48', type: 'number' },
+    { group: 'Distribuição', name: 'v49_53',   label: '49 a 53', type: 'number' },
+    { group: 'Distribuição', name: 'v54_58',   label: '54 a 58', type: 'number' },
+    { group: 'Distribuição', name: 'v59_mais', label: '59 ou +',  type: 'number' },
 
+    /* PLANOS / COBERTURA */
+    { group: 'Cobertura', name: 'acomodacao',   label: 'Acomodação',   type: 'select', required: true,
+      options: ['Quarto coletivo', 'Quarto individual'] },
+    { group: 'Cobertura', name: 'coparticipacao', label: 'Coparticipação', type: 'select', required: true,
+      options: ['Com', 'Sem'] },
+    { group: 'Cobertura', name: 'redePreferida', label: 'Hospitais de preferência', type: 'text' },
+
+    /* HISTÓRICO */
+    { group: 'Histórico', name: 'temPlano',   label: 'Já possui plano?', type: 'select', required: true,
+      options: ['Sim', 'Não'] },
+    { group: 'Histórico', name: 'operadoraAnterior', label: 'Operadora anterior', type: 'text' },
+  ],
+},
+
+saude_empresarial: {
+  title: 'Plano de Saúde – Empresarial / PME / MEI',
+  description: 'Informações para cotação de planos empresariais.',
+  fields: [
+    /* EMPRESA */
+    { group: 'Empresa', name: 'razaoSocial',  label: 'Razão social', type: 'text', required: true },
+    { group: 'Empresa', name: 'cnpj',         label: 'CNPJ',         type: 'text', required: true },
+    { group: 'Empresa', name: 'cidade',       label: 'Cidade / UF',  type: 'text', required: true },
+    { group: 'Empresa', name: 'aceitaMei',    label: 'Empresa é MEI?', type: 'select',
+      options: ['Sim', 'Não'], required: true },
+
+    /* CONTATO */
+    { group: 'Contato', name: 'responsavel',  label: 'Nome do responsável', type: 'text', required: true },
+    { group: 'Contato', name: 'telefone',     label: 'Telefone',            type: 'tel',  required: true },
+    { group: 'Contato', name: 'email',        label: 'E-mail',              type: 'email',required: true },
+
+    /* BENEFICIÁRIOS */
+    { group: 'Beneficiários', name: 'qtdeVidas', label: 'Total de vidas', type: 'number', required: true },
+    { group: 'Distribuição', name: 'v00_18',   label: '00 a 18', type: 'number' },
+    { group: 'Distribuição', name: 'v19_23',   label: '19 a 23', type: 'number' },
+    { group: 'Distribuição', name: 'v24_28',   label: '24 a 28', type: 'number' },
+    { group: 'Distribuição', name: 'v29_33',   label: '29 a 33', type: 'number' },
+    { group: 'Distribuição', name: 'v34_38',   label: '34 a 38', type: 'number' },
+    { group: 'Distribuição', name: 'v39_43',   label: '39 a 43', type: 'number' },
+    { group: 'Distribuição', name: 'v44_48',   label: '44 a 48', type: 'number' },
+    { group: 'Distribuição', name: 'v49_53',   label: '49 a 53', type: 'number' },
+    { group: 'Distribuição', name: 'v54_58',   label: '54 a 58', type: 'number' },
+    { group: 'Distribuição', name: 'v59_mais', label: '59 ou +',  type: 'number' },
+
+    /* CONTRATAÇÃO */
+    { group: 'Contratação', name: 'tipoContratacao', label: 'Tipo de contratação', type: 'select',
+      options: ['Compulsória', 'Opcional'], required: true },
+    { group: 'Contratação', name: 'coparticipacao',  label: 'Coparticipação', type: 'select',
+      options: ['Com', 'Sem'], required: true },
+  ],
+},
+
+saude_adesao: {
+  title: 'Plano de Saúde – Por Adesão',
+  description: 'Planos via entidade de classe, sindicatos ou associações.',
+  fields: [
+    { group: 'Dados', name: 'nome', label: 'Nome completo', type: 'text', required: true },
+    { group: 'Dados', name: 'telefone', label: 'Telefone / WhatsApp', type: 'tel', required: true },
+    { group: 'Dados', name: 'email', label: 'E-mail', type: 'email', required: true },
+    { group: 'Dados', name: 'cidade', label: 'Cidade / UF', type: 'text', required: true },
+
+    { group: 'Entidade', name: 'entidade',   label: 'Entidade / Conselho (OAB, CRM, CREA …)', type: 'text', required: true },
+    { group: 'Entidade', name: 'numeroCarteira', label: 'Nº da carteira / registro', type: 'text' },
+
+    { group: 'Beneficiários', name: 'qtdeVidas', label: 'Nº de pessoas', type: 'number', required: true },
+
+    /* BENEFICIÁRIOS */
+    { group: 'Beneficiários', name: 'qtdeVidas', label: 'Total de vidas', type: 'number', required: true },
+    { group: 'Distribuição', name: 'v00_18',   label: '00 a 18', type: 'number' },
+    { group: 'Distribuição', name: 'v19_23',   label: '19 a 23', type: 'number' },
+    { group: 'Distribuição', name: 'v24_28',   label: '24 a 28', type: 'number' },
+    { group: 'Distribuição', name: 'v29_33',   label: '29 a 33', type: 'number' },
+    { group: 'Distribuição', name: 'v34_38',   label: '34 a 38', type: 'number' },
+    { group: 'Distribuição', name: 'v39_43',   label: '39 a 43', type: 'number' },
+    { group: 'Distribuição', name: 'v44_48',   label: '44 a 48', type: 'number' },
+    { group: 'Distribuição', name: 'v49_53',   label: '49 a 53', type: 'number' },
+    { group: 'Distribuição', name: 'v54_58',   label: '54 a 58', type: 'number' },
+    { group: 'Distribuição', name: 'v59_mais', label: '59 ou +',  type: 'number' },
+
+    { group: 'Plano', name: 'acomodacao', label: 'Acomodação', type: 'select',
+      options: ['Quarto coletivo', 'Quarto individual'] },
+  ],
+},
+
+saude_odontologico: {
+  title: 'Plano Odontológico',
+  description: 'Cobertura odontológica para indivíduos, famílias ou empresas.',
+  fields: [
+    { group: 'Contato', name: 'nome',      label: 'Nome completo',        type: 'text',  required: true },
+    { group: 'Contato', name: 'telefone',  label: 'Telefone / WhatsApp',  type: 'tel',   required: true },
+    { group: 'Contato', name: 'email',     label: 'E-mail',               type: 'email', required: true },
+    { group: 'Contato', name: 'cidade',    label: 'Cidade / UF',          type: 'text',  required: true },
+
+    { group: 'Plano', name: 'modalidade', label: 'Modalidade', type: 'select', required: true,
+      options: ['Individual', 'Familiar', 'Empresarial'] },
+    { group: 'Plano', name: 'qtdeVidas',  label: 'Nº de pessoas', type: 'number' },
+    { group: 'Plano', name: 'temSaude',   label: 'Já possui plano de saúde?', type: 'select',
+      options: ['Sim', 'Não'] },
+    { group: 'Observações', name: 'observacoes', label: 'Observações', type: 'textarea' },
+    /* BENEFICIÁRIOS */
+    { group: 'Beneficiários', name: 'qtdeVidas', label: 'Total de vidas', type: 'number', required: true },
+    { group: 'Distribuição', name: 'v00_18',   label: '00 a 18', type: 'number' },
+    { group: 'Distribuição', name: 'v19_23',   label: '19 a 23', type: 'number' },
+    { group: 'Distribuição', name: 'v24_28',   label: '24 a 28', type: 'number' },
+    { group: 'Distribuição', name: 'v29_33',   label: '29 a 33', type: 'number' },
+    { group: 'Distribuição', name: 'v34_38',   label: '34 a 38', type: 'number' },
+    { group: 'Distribuição', name: 'v39_43',   label: '39 a 43', type: 'number' },
+    { group: 'Distribuição', name: 'v44_48',   label: '44 a 48', type: 'number' },
+    { group: 'Distribuição', name: 'v49_53',   label: '49 a 53', type: 'number' },
+    { group: 'Distribuição', name: 'v54_58',   label: '54 a 58', type: 'number' },
+    { group: 'Distribuição', name: 'v59_mais', label: '59 ou +',  type: 'number' },
+  ],
+},
 
 
 

@@ -11,7 +11,7 @@ textarea.input {
 }
 
 .btn-enviar {
-  @apply mt-8 bg-accent text-primary font-semibold py-3 px-6 rounded-md hover:bg-primary transition;
+  @apply inline-block bg-accent text-white hover:bg-primary hover:text-white font-medium py-3 px-8 rounded-lg transition shadow-md;
 }
 
 .erro {

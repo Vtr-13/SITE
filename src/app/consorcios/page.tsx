@@ -148,7 +148,7 @@ useEffect(() => {
         <div className="container mx-auto px-4">
           <div className="mx-auto mb-14 max-w-3xl text-center">
             <h2 className="font-heading text-4xl font-bold">
-              O <span className="text-accent">Consórcio</span> em 3 passos
+              <span className="text-Primary">O CONSÓRCIO EM 3 PASSOS</span> 
             </h2>
             <p className="mt-4 text-lg text-primary/80">
               Uma solução de compra programada sem juros nem entrada. Você entra
@@ -200,7 +200,7 @@ useEffect(() => {
           <div className="mx-auto mb-14 max-w-3xl text-center">
             <h2 className="font-heading text-4xl font-bold">
               
-              <span className="text-white">Por que escolher o Consórcio ?</span>
+              <span className="text-white">POR QUE ESCOLHER O CONSÓRCIOS ?</span>
             </h2>
           </div>
 
@@ -254,7 +254,7 @@ useEffect(() => {
   <div className="container mx-auto px-4">
     <header className="mx-auto mb-14 max-w-3xl text-center">
       <h2 className="font-heading text-4xl font-bold">
-        Compare os <span className="text-accent">tipos de consórcio</span> disponíveis
+        <span className="text-primary">COMPARE OS TIPOS DE CONSÓRCIOS DISPONÍVEIS</span>
       </h2>
       <p className="mt-4 text-lg text-primary/80">
         Encontre a melhor solução para conquistar seu carro, imóvel, serviço ou equipamento com parcelas acessíveis e prazos flexíveis.

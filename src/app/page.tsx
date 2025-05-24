@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import HeroCards from "@/components/layout/HeroCards";
@@ -31,7 +31,7 @@ export default function Home() {
     if (!slider.current) return;
     const interval = setInterval(() => {
       slider.current?.next();
-    }, 1000); // 👈 Aqui está o tempo atual: 3000ms = 3 segundos
+    }, 1000);
     return () => clearInterval(interval);
   }, [slider]);
 
@@ -61,10 +61,14 @@ export default function Home() {
     <p className="text-base sm:text-lg md:text-xl max-w-3xl mb-8 opacity-0 animate-fade-in-up animation-delay-500">
       Atendimento personalizado e soluções financeiras de alto padrão para empresas e clientes exigentes. Seguros, investimentos, crédito e muito mais.
     </p>
-    <div className="opacity-0 animate-fade-in-up animation-delay-700 w-full max-w-xs sm:max-w-sm md:max-w-md">
-      <FormularioPopup />
-    </div>
+               <Link
+            href="#solucoes"                     
+           className="inline-block bg-accent/100 text-white hover:bg-primary hover:text-white font-medium py-3 px-8 rounded-lg transition shadow-md" >
+            CONHEÇA NOSSAS SOLUÇÕES
+            </Link>  
   </div>
+
+<div className="opacity-0 animate-fade-in-up animation-delay-700 w-full max-w-xs sm:max-w-sm md:max-w-md"></div>
 
   {/* Seta animada apontando para baixo */}
   <div className="opacity-0 animate-fade-in-up animation-delay-700 w-full max-w-full px-4 sm:px-6 md:px-0">
@@ -73,8 +77,10 @@ export default function Home() {
 </section>
 
 
-      {/* Animated Hero Cards Section */}
-      <HeroCards />
+     {/* Animated Hero Cards Section */}
+<section id="solucoes" className="scroll-mt-20">
+  <HeroCards />
+</section>
 
       {/* Nossos Parceiros com Keen Slider */}
       <section className="text-center py-12 bg-offwhite text-primary">
@@ -111,10 +117,13 @@ export default function Home() {
         </p>
       
         {/* Substitua o antigo botão por isto abaixo: */}
-         <FormularioPopup
-          buttonText="Solicitar Cotação"
-          className="inline-block bg-accent/100 text-accent hover:bg-primary hover:text-white font-medium py-3 px-8 rounded-lg transition shadow-md"
-        />
+         <button
+  onClick={() => window.abrirContatoPopup?.()}
+  className="inline-block bg-accent text-white hover:bg-offwhite hover:text-primary font-medium py-3 px-8 rounded-lg transition shadow-md"
+>
+  Fale com um consultor
+</button>
+
       
       </section>
          

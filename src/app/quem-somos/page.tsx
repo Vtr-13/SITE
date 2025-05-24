@@ -131,10 +131,12 @@ export default function Page() {
   </p>
 
   {/* Botão popup: */}
-   <FormularioPopup
-    buttonText="Solicitar Cotação"
-    className="inline-block bg-accent/100 text-accent hover:bg-primary hover:text-white font-medium py-3 px-8 rounded-lg transition shadow-md"
-  />
+   <button
+  onClick={() => window.abrirContatoPopup?.()}
+  className="inline-block bg-accent text-white hover:bg-offwhite hover:text-primary font-medium py-3 px-8 rounded-lg transition shadow-md"
+>
+  FALE COM UM CONSULTOR
+</button>
 
 </section>
 

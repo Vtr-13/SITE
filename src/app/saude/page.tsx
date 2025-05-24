@@ -5,7 +5,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
-import FormularioPopup from '@/components/layout/FormularioPopup'
+import FormPopup from '@/components/forms/FormPopup'
+import { DistribuicaoGrid } from '@/components/forms/saude/FormSaudeAddon'
 
 import { Disclosure } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/24/solid'
@@ -22,12 +23,15 @@ import 'swiper/css/effect-fade'
 import 'swiper/css/pagination'
 import 'swiper/css/autoplay'
 
+
+
 /* COMPONENTE CARD */
 type Ramo = {
   nome: string;
   icone: string;
   desc: string;
   bullets: string[];
+  produtoId: string
 }
 
 type CardProps = {
@@ -59,12 +63,16 @@ function Card({ ramo, flipped, setFlipped }: CardProps) {
             >
               Saiba mais
             </button>
-            <div onClick={(e) => e.stopPropagation()}>
-              <FormularioPopup
-                buttonText="Solicitar Cotação"
-                className="inline-block bg-accent text-primary hover:bg-primary hover:text-white font-medium py-3 px-8 rounded-lg transition shadow-md hover:scale-105"
-              />
-            </div>
+           <div onClick={(e) => e.stopPropagation()}>
+  <FormPopup
+    segmento="saude"
+    produtoId={ramo.produtoId as any}
+    buttonText="Solicitar Cotação"
+    className="inline-block bg-accent text-primary hover:bg-primary hover:text-white font-medium py-3 px-8 rounded-lg transition shadow-md hover:scale-105"
+  />
+</div>
+
+
           </div>
         </div>
 
@@ -178,6 +186,7 @@ const planosSaude = [
     nome: "INDIVIDUAL/FAMILIAR",
     icone: "images/saude/icons/familia.svg",
     desc: "Proteja sua saúde e da sua família com planos acessíveis, ampla rede credenciada, reembolso para consultas particulares e possibilidade de isenção de carência com análise do plano anterior. A partir de R$ 180/mês por pessoa*",
+    produtoId: 'saude_individual',
     bullets: [
   "• • • PARA QUEM É INDICADO?",
   "Pessoas físicas que desejam contratar um plano de forma independente",
@@ -215,6 +224,7 @@ const planosSaude = [
   nome: "EMPRESARIAL",
   icone: "images/saude/icons/empresarial.svg",
   desc: "Ofereça planos de saúde para sua equipe com preços reduzidos, carências facilitadas e condições exclusivas para empresas a partir de 3 vidas. A partir de R$ 99/mês por colaborador*",
+  produtoId: 'saude_empresarial',
   bullets: [
     "• • • PARA QUEM É INDICADO?",
     "Microempreendedores Individuais (MEIs), pequenas e médias empresas",
@@ -253,6 +263,7 @@ const planosSaude = [
   nome: "ADESÃO",
   icone: "images/saude/icons/adesao.svg",
   desc: "Planos com valores acessíveis para profissionais, estudantes e servidores vinculados a entidades de classe, com rede ampla e possibilidade de isenção de carência. A partir de R$ 139/mês por pessoa*",
+  produtoId: 'saude_adesao',
   bullets: [
     "• • • PARA QUEM É INDICADO?",
     "Profissionais liberais vinculados a sindicatos ou conselhos de classe (ex: OAB, CRM, CREA)",
@@ -291,6 +302,7 @@ const planosSaude = [
   nome: "ODONTOLÓGICO",
   icone: "images/saude/icons/odontologico.svg",
   desc: "Garanta acesso a dentistas, tratamentos preventivos e procedimentos de urgência com planos acessíveis e cobertura nacional. A partir de R$ 29,90/mês por pessoa*",
+  produtoId: 'saude_odontologico',
   bullets: [
     "• • • PARA QUEM É INDICADO?",
     "Pessoas físicas que desejam atendimento odontológico regular e emergencial",
@@ -345,22 +357,135 @@ return (
   <div className="absolute inset-0 bg-black bg-opacity-60" />
 
   {/* Conteúdo sobre a imagem */}
-  <div className="absolute bottom-10 w-full z-10">
-  <div className="container max-w-5xl text-left pl-4 md:pl-10 lg:pl-20">
-    <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-      Planos de Saúde para Todas as Fases da Vida
-    </h1>
-    <p className="text-lg text-white/80 mb-6">
-      Escolha o plano ideal com consultoria gratuita e cobertura nacional
-    </p>
-    <FormularioPopup
-      buttonText="Solicitar Cotação"
-      className="bg-accent text-primary font-semibold px-8 py-4 rounded-full shadow hover:-translate-y-1 transition"
-    />
+  <div className="absolute bottom-10 left-0 w-full z-10">
+  <div className="container mx-auto px-4">
+    <div className="max-w-3xl">
+      <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+        Planos de Saúde para Todas as Fases da Vida
+      </h1>
+      <p className="text-lg text-white/80 mb-6">
+        Escolha o plano ideal com consultoria gratuita e cobertura nacional
+      </p>
+      <Link
+        href="#planos-saude"
+        onClick={() => setFlipped(null)}
+        className="inline-block bg-accent/100 text-white hover:bg-primary hover:text-white font-medium py-3 px-8 rounded-lg transition shadow-md"
+      >
+        FAÇA UMA SIMULAÇÃO
+      </Link>
+    </div>
   </div>
 </div>
 
+
 </section>
+<meta name="description" content="Encontre o plano de saúde ideal com ajuda de um consultor gratuito. Trabalhamos com as maiores operadoras do país. Simule agora e tenha cobertura nacional com carência reduzida." />
+
+
+  {/* POR QUE ESCOLHER A ARJ PRIME? ------------------------------------ */}
+<section id="beneficios-saude" className="bg-primary text-white py-24">
+  <div className="container mx-auto px-4">
+    <h2 className="mb-16 text-center font-heading text-4xl font-bold">
+       <span className="text-white">POR QUE ESCOLHER A ARJ PRIME</span>?
+    </h2>
+
+    <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+      {/* ---------- 1. SEM CARÊNCIA */}
+      <article
+        itemScope
+        itemType="https://schema.org/HealthInsurancePlan"
+        className="rounded-2xl bg-offwhite p-10 text-center shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+      >
+        <img src="/images/saude/icons/car.svg" alt="" aria-hidden="true" width={46} height={46} className="mx-auto mb-6" />
+        <h3 className="mb-3 text-xl font-semibold text-primary">
+          Sem Carência*
+        </h3>
+        <p className="text-primary/80">
+          Comece a usar <strong>logo após a contratação</strong> – consultas, exames e muito mais, sem esperar. Ideal para quem tem pressa!
+        </p>
+        <a href="#planos-saude" className="mt-6 inline-block font-medium text-accent underline-offset-2 hover:text-accent/80">
+          Quero meu plano hoje →
+        </a>
+      </article>
+
+      {/* ---------- 2. ATENDIMENTO 24 h */}
+      <article itemScope itemType="https://schema.org/HealthInsurancePlan" className="rounded-2xl bg-offwhite p-10 text-center shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+        <img src="/images/saude/icons/up.svg" alt="" aria-hidden="true" width={46} height={46} className="mx-auto mb-6" />
+        <h3 className="mb-3 text-xl font-semibold text-primary">
+          Atendimento 24 h
+        </h3>
+        <p className="text-primary/80">
+          Ligue, chame no WhatsApp ou use o chat a qualquer hora. Nossa equipe resolve tudo, do boleto à liberação de exame.
+        </p>
+        <a href="#planos-saude" className="mt-6 inline-block font-medium text-accent underline-offset-2 hover:text-accent/80">
+          Falar com especialista →
+        </a>
+      </article>
+
+      {/* ---------- 3. CONSULTORIA PERSONALIZADA */}
+      <article itemScope itemType="https://schema.org/HealthInsurancePlan" className="rounded-2xl bg-offwhite p-10 text-center shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+        <img src="/images/saude/icons/user.svg" alt="" aria-hidden="true" width={46} height={46} className="mx-auto mb-6" />
+        <h3 className="mb-3 text-xl font-semibold text-primary">
+          Consultoria Personalizada
+        </h3>
+        <p className="text-primary/80">
+          A gente compara Porto, Bradesco, SulAmérica, Omint e outras para achar <strong>o melhor custo-benefício</strong> para você.
+        </p>
+        <a href="#planos-saude" className="mt-6 inline-block font-medium text-accent underline-offset-2 hover:text-accent/80">
+          Agendar análise →
+        </a>
+      </article>
+
+      {/* ---------- 4. TELEMEDICINA INCLUSA */}
+      <article itemScope itemType="https://schema.org/HealthInsurancePlan" className="rounded-2xl bg-offwhite p-10 text-center shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+        <img src="/images/saude/icons/stet.svg" alt="" aria-hidden="true" width={46} height={46} className="mx-auto mb-6" />
+        <h3 className="mb-3 text-xl font-semibold text-primary">
+          Telemedicina 24/7
+        </h3>
+        <p className="text-primary/80">
+          Fale com médicos online quando quiser. Praticidade para consultas rápidas, receitas digitais e segunda opinião.
+        </p>
+        <a href="#planos-saude" className="mt-6 inline-block font-medium text-accent underline-offset-2 hover:text-accent/80">
+          Ver como funciona →
+        </a>
+      </article>
+
+      {/* ---------- 5. REDE PREMIUM */}
+      <article itemScope itemType="https://schema.org/HealthInsurancePlan" className="rounded-2xl bg-offwhite p-10 text-center shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+        <img src="/images/saude/icons/hospital.svg" alt="" aria-hidden="true" width={46} height={46} className="mx-auto mb-6" />
+        <h3 className="mb-3 text-xl font-semibold text-primary">
+          Rede Premium Nacional
+        </h3>
+        <p className="text-primary/80">
+          Tenha acesso a hospitais referência como Albert Einstein, Sírio-Libanês e Oswaldo Cruz nos principais planos executivos.
+        </p>
+        <a href="#planos-saude" className="mt-6 inline-block font-medium text-accent underline-offset-2 hover:text-accent/80">
+          Conhecer hospitais →
+        </a>
+      </article>
+
+      {/* ---------- 6. BEM-ESTAR & DESCONTOS */}
+      <article itemScope itemType="https://schema.org/HealthInsurancePlan" className="rounded-2xl bg-offwhite p-10 text-center shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+        <img src="/images/saude/icons/coracao.svg" alt="" aria-hidden="true" width={46} height={46} className="mx-auto mb-6" />
+        <h3 className="mb-3 text-xl font-semibold text-primary">
+          Bem-Estar & Descontos
+        </h3>
+        <p className="text-primary/80">
+          Apps fitness, check-up anual gratuito e até <strong>70 % off</strong> em farmácias parceiras. Saúde e bolso agradecem!
+        </p>
+        <a href="#planos-saude" className="mt-6 inline-block font-medium text-accent underline-offset-2 hover:text-accent/80">
+          Quero aproveitar →
+        </a>
+      </article>
+    </div>
+
+    {/* Observação legal enxuta */}
+    <p className="mt-12 text-center text-sm text-primary/70">
+      * Consulte condições para isenção de carência. Benefícios podem variar conforme operadora e categoria do plano.
+    </p>
+  </div>
+</section>
+
 
 
     {/* PLANOS DE SAÚDE */}
@@ -375,7 +500,7 @@ return (
           </p>
         </div>
 
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {planosSaude.map((ramo, i) => (
             <Card            
               key={i}
@@ -388,25 +513,7 @@ return (
       </div>
     </section>
 
-    {/* BENEFÍCIOS */}
-    <section id="beneficios" className="bg-primary py-20 text-white">
-      <div className="container mx-auto px-4">
-        <div className="mx-auto mb-14 max-w-3xl text-center">
-          <h2 className="font-heading text-4xl font-bold">
-             <span className="text-white">POR QUE ESCOLHER A ARJ Prime</span>?
-          </h2>
-        </div>
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {beneficios.map((b, i) => (
-            <div key={i} className="group rounded-xl bg-offwhite p-8 text-center text-primary shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
-              <b.icon className="mx-auto h-12 w-12 text-accent" />
-              <h3 className="mt-4 text-lg font-semibold">{b.title}</h3>
-              <p className="mt-2 text-primary/70">{b.desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
+    
 
     {/* PARCEIROS */}
 <section id="parceiros" className="bg-white py-8">
@@ -484,37 +591,8 @@ return (
       ))}
     </div>
   </div>
-</section>
-
+</section>  
     
-    {/* CONTATO */}
-    <section className="py-20 bg-primary/90 text-white" id="contato">
-      <div className="container mx-auto px-4 max-w-4xl">
-        <h2 className="text-center text-4xl font-semibold mb-8">
-          Solicite sua <span className="text-accent">Cotação</span>
-        </h2>
-        <form
-          id="formulario-cotacao"
-          action="https://formsubmit.co/contato@arjprime.com.br"
-          method="POST"
-          className="grid sm:grid-cols-2 gap-6"
-        >
-          <input type="text" name="nome" placeholder="Seu nome" required className="p-4 rounded bg-white text-primary placeholder:text-primary/60" />
-          <input type="email" name="email" placeholder="Seu e-mail" required className="p-4 rounded bg-white text-primary placeholder:text-primary/60" />
-          <input type="tel" name="telefone" placeholder="Telefone/WhatsApp" required className="p-4 rounded bg-white text-primary placeholder:text-primary/60" />
-          <select name="tipo_plano" required className="p-4 rounded bg-white text-primary">
-            <option value="">Tipo de Plano</option>
-            <option>Individual/Familiar</option>
-            <option>MEI</option>
-            <option>Empresarial</option>
-          </select>
-          <textarea name="mensagem" placeholder="Mensagem" rows={4} className="sm:col-span-2 p-4 rounded bg-white text-primary placeholder:text-primary/60" />
-          <button type="submit" className="sm:col-span-2 bg-accent text-primary font-semibold py-4 rounded-full hover:-translate-y-0.5 transition">
-            Enviar
-          </button>
-        </form>
-      </div>
-    </section>
 
   </main>
 )

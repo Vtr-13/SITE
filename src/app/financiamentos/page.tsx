@@ -502,12 +502,12 @@ useEffect(() => {
 
   return (
     <main className="bg-primary text-white overflow-hidden relative">
-     <section className="relative h-[calc(100vh-96px)] w-full overflow-hidden text-center">
+     <section className="relative h-[calc(111vh-96px)] w-full overflow-hidden text-center">
   {/* Carrossel de Imagens */}
   <Swiper
     modules={[Autoplay, EffectFade]}
     effect="fade"
-    autoplay={{ delay: 4000, disableOnInteraction: false }}
+    autoplay={{ delay: 3000, disableOnInteraction: false }}
     loop
     className="absolute inset-0 h-full w-full z-0"
   >
@@ -532,22 +532,23 @@ useEffect(() => {
   <div className="absolute inset-0 bg-black/80 z-10" />
 
   {/* Conteúdo sobreposto */}
-  <div className="absolute bottom-0 left-0 right-0 z-20 px-6 pb-10 max-w-3xl mx-auto">
-    <h1 className="text-4xl md:text-5xl font-bold mb-3 whitespace-nowrap drop-shadow-lg">
-      FINANCIAMENTOS <span className="text-accent">&</span> CRÉDITOS
+  <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-20 w-full max-w-7xl px-6">
+  <div className="mx-auto text-center max-w-3xl flex flex-col items-center">
+    <h1 className="text-4xl md:text-5xl font-bold text-white drop-shadow-lg leading-tight mb-4">
+      FINANCIAMENTOS & CRÉDITOS<br />SOB MEDIDA
     </h1>
-    <p className="text-lg text-white/80 mb-6 drop-shadow-sm">
-      Seis soluções sob medida — do <em>Car Equity</em> ao capital de giro.
+    <p className="text-lg text-white/80 mb-6 drop-shadow-sm max-w-[90%]">
+      Crédito com garantia, capital de giro, antecipação de recebíveis, empréstimos pessoais e mais — com condições personalizadas para o seu perfil.
     </p>
     <Link
-                href="#credito"
-                onClick={() => setFlipped(null)}
-                 className="inline-block bg-accent/100 text-white hover:bg-primary hover:text-white font-medium py-3 px-8 rounded-lg transition shadow-md"
-              >
-                SIMULAR AGORA
-              </Link>
-
+      href="#credito"
+      className="inline-block rounded-md bg-accent px-6 py-3 font-semibold text-white shadow hover:bg-accent/80 transition"
+    >
+      Simular meu Crédito Agora →
+    </Link>
   </div>
+</div>
+
 </section>
 
 

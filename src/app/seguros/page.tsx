@@ -723,10 +723,10 @@ export default function Page() {
               <div className="absolute inset-0 bg-gradient-to-b from-[#14223B]/60 to-[#14223B]/90" />
               <div className="relative z-10 flex flex-col items-center justify-end h-full text-center text-white px-4 pb-20">
   <h1 className="text-4xl md:text-6xl font-bold mb-6" data-aos="fade-down">
-    SEGUROS <span className="text-white">PERSONALIZADOS</span>
+    <span className="text-white">SEGUROS PERSONALIZADOS PARA SUA FAMÍLIA E EMPRESA</span>
   </h1>
   <p className="max-w-xl mb-8 text-base md:text-xl" data-aos="fade-up" data-aos-delay="150">
-    Proteja o que realmente importa com o atendimento premium da ARJ PRIME.
+    Proteja o que mais importa com coberturas sob medida, atendimento humano 24h e vantagens exclusivas em todas as etapas.
   </p>
   {/* Cotação de Seguro – já abre no bloco “seguros” */}
               <Link
@@ -734,7 +734,7 @@ export default function Page() {
                 onClick={() => setFlipped(null)}
                  className="inline-block bg-accent/100 text-white hover:bg-primary hover:text-white font-medium py-3 px-8 rounded-lg transition shadow-md"
               >
-                Solicitar cotação
+                Simular meu Seguro agora →
               </Link>
 </div>
 
@@ -841,7 +841,10 @@ export default function Page() {
             ))}
           </Swiper>
         </div>
+        
       </section>
+
+      
 
       {/* FAQ ---------------------------------------------------------- */}
       <section className="py-16 bg-primary text-white" data-aos="fade-up">
@@ -878,6 +881,7 @@ export default function Page() {
         </div>
       ))}
     </div>
+    
   </div>
 </section>    </>
   );

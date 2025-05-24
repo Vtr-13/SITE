@@ -2,15 +2,16 @@
 import { useState, useMemo } from 'react'
 import { createPortal } from 'react-dom'
 import { formsConfig, Field } from './formsConfig'
-
+/* ⬇️  importa o grid exclusivo de saúde */
+import { DistribuicaoGrid } from './saude/FormSaudeAddon'
+import { useEffect } from 'react' // 
 interface FormPopupProps {
   segmento: 'seguros' | 'investimentos' | 'saude' | 'financiamentos' | 'consorcios'
-  produtoId: keyof typeof formsConfig     // 'vida', 'auto', …
+  produtoId: keyof typeof formsConfig
   buttonText?: string
   className?: string
 }
 
-/* ------------- COMPONENTE PRINCIPAL ------------------- */
 export default function FormPopup({
   segmento,
   produtoId,
@@ -18,8 +19,10 @@ export default function FormPopup({
   className = '',
 }: FormPopupProps) {
   const produto = formsConfig[produtoId]
-
-  /* Estado dinâmico */
+  const isSaude = segmento === 'saude'   // ← usado para mostrar o grid
+ const distribuicao = produto.fields.filter(f => f.group === 'Distribuição')
+ 
+  /* estado inicial dinâmico */
   const initialState = useMemo(() => {
     const state: Record<string, any> = {}
     produto.fields.forEach(f => (state[f.name] = f.type === 'checkbox' ? false : ''))
@@ -29,20 +32,34 @@ export default function FormPopup({
   const [isOpen, setIsOpen] = useState(false)
   const [formData, setFormData] = useState<Record<string, any>>(initialState)
   const [sending, setSending] = useState(false)
+  useEffect(() => {
+  const html = document.documentElement
+  const body = document.body
 
- const handleChange = (
-  e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
-) => {
-  const { name, value, type } = e.target
-  const checked = (e.target as HTMLInputElement).checked
-
-  setFormData((prev) => ({
-    ...prev,
-    [name]: type === 'checkbox' ? checked : value,
-  }))
-}
+  if (isOpen) {
+    html.classList.add('overflow-hidden')
+    body.classList.add('overflow-hidden', 'touch-none')
+  } else {
+    html.classList.remove('overflow-hidden')
+    body.classList.remove('overflow-hidden', 'touch-none')
+  }
+}, [isOpen])
 
 
+  /* handler de mudança */
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value, type } = e.target
+    const checked = (e.target as HTMLInputElement).checked
+
+    setFormData(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value,
+    }))
+  }
+
+  /* envio */
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setSending(true)
@@ -50,23 +67,19 @@ export default function FormPopup({
       await fetch('/api/lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          segmento,
-          produtoId,
-          ...formData,
-        }),
+        body: JSON.stringify({ segmento, produtoId, ...formData }),
       })
       alert('Proposta enviada! Nossa equipe entrará em contato em breve.')
       setFormData(initialState)
       setIsOpen(false)
-    } catch (err) {
+    } catch {
       alert('Erro no envio. Tente novamente.')
     } finally {
       setSending(false)
     }
   }
 
-  /* ----- RENDERIZAÇÃO DE CAMPO DINÂMICO ----------------- */
+  /* renderizador genérico de campo */
   const renderField = (f: Field) => {
     const commonProps = {
       name: f.name,
@@ -74,23 +87,31 @@ export default function FormPopup({
       onChange: handleChange,
       required: f.required,
       className:
-        'w-full px-3 py-2 rounded border border-gray-600 bg-transparent text-primary placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent',
+        'w-full px-3 py-2 rounded border border-gray-600 bg-transparent text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent',
     }
 
-    if (f.type === 'select') {
-      return (
-        <select {...commonProps as any}>
-          <option value="">Selecione</option>
-          {f.options!.map(opt => (
-            <option key={opt}>{opt}</option>
-          ))}
-        </select>
-      )
-    }
-    if (f.type === 'textarea') {
-      return <textarea rows={3} {...commonProps as any} />
-    }
-    if (f.type === 'checkbox') {
+    if (f.type === 'select')
+  return (
+    <select
+      {...(commonProps as any)}
+      className={`${commonProps.className} bg-primary text-white`} // ← reforço aqui
+    >
+      <option value="" className="bg-primary text-white">Selecione</option>
+      {f.options!.map(opt => (
+        <option
+          key={opt}
+          className="bg-primary text-white" // ← tentativa de estilo direto nas opções
+        >
+          {opt}
+        </option>
+      ))}
+    </select>
+  )
+
+
+    if (f.type === 'textarea') return <textarea rows={3} {...(commonProps as any)} />
+
+    if (f.type === 'checkbox')
       return (
         <label className="inline-flex items-center gap-2 text-sm">
           <input
@@ -103,7 +124,7 @@ export default function FormPopup({
           {f.label}
         </label>
       )
-    }
+
     /* text, email, tel, number, date */
     return <input type={f.type} placeholder={f.label} {...commonProps} />
   }
@@ -111,21 +132,27 @@ export default function FormPopup({
   /* UI */
   return (
     <>
+      {/* BOTÃO ABRIR POPUP */}
       <button
-  onClick={() => setIsOpen(true)}
-  className={`inline-block bg-accent text-white
-              hover:bg-primary hover:text-white hover:scale-105
-              transform transition duration-200
-              font-medium py-3 px-8 rounded-lg shadow-md ${className}`}
->
-  {buttonText}
-</button>
+        onClick={() => setIsOpen(true)}
+        className={`inline-block bg-accent text-white hover:bg-primary hover:text-white hover:scale-105 transform transition duration-200 font-medium py-3 px-8 rounded-lg shadow-md ${className}`}
+      >
+        {buttonText}
+      </button>
 
-
+      {/* POPUP */}
       {isOpen &&
         createPortal(
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 px-4 py-6 sm:py-8">
-            <div className="relative bg-[#070D17] text-white rounded-lg shadow-lg w-full max-w-2xl max-h-full overflow-y-auto p-6 sm:p-8">
+          <div
+  className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 px-4 py-6 sm:py-8"
+  onClick={() => setIsOpen(false)}
+>
+            <div
+  className="relative bg-[#070D17] text-white rounded-lg shadow-lg w-full max-w-2xl max-h-full overflow-y-auto p-6 sm:p-8"
+  onClick={(e) => e.stopPropagation()}
+>
+
+              {/* botão fechar */}
               <button
                 onClick={() => setIsOpen(false)}
                 className="absolute top-3 right-3 text-2xl hover:text-accent"
@@ -139,15 +166,28 @@ export default function FormPopup({
                 <p className="mb-4 text-sm text-gray-300">{produto.description}</p>
               )}
 
+              {/* FORMULÁRIO */}
               <form onSubmit={handleSubmit} className="space-y-4">
-                {produto.fields.map(f => (
-                  <div key={f.name}>
-                    {f.type !== 'checkbox' && (
-                      <label className="block mb-1 text-sm">{f.label}</label>
-                    )}
-                    {renderField(f)}
-                  </div>
-                ))}
+                {/* Grid 5×2 de distribuição – só para saúde */}
+                {isSaude && distribuicao.length > 0 && (
+  <DistribuicaoGrid
+    fields={distribuicao}
+    values={formData}
+    handleChange={handleChange as any}
+  />
+)}
+
+                {/* Demais campos */}
+                {produto.fields
+                  .filter(f => !isSaude || f.group !== 'Distribuição')
+                  .map(f => (
+                    <div key={f.name}>
+                      {f.type !== 'checkbox' && (
+                        <label className="block mb-1 text-sm">{f.label}</label>
+                      )}
+                      {renderField(f)}
+                    </div>
+                  ))}
 
                 <button
                   disabled={sending}

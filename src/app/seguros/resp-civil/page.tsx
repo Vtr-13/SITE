@@ -578,7 +578,7 @@ export default function ResponsabilidadeCivil() {
                 onClick={() => setFlipped(null)}
                  className="inline-block bg-accent/100 text-white hover:bg-primary hover:text-white font-medium py-3 px-8 rounded-lg transition shadow-md"
               >
-                Solicitar cotação
+                Simular meu Seguro agora →
               </Link>
 
 
@@ -608,7 +608,13 @@ export default function ResponsabilidadeCivil() {
           <p className="text-white/80 mb-8 max-w-xl mx-auto">
             Solicite sua cotação personalizada e conte com o suporte da ARJ Prime para garantir sua tranquilidade profissional.
           </p>
-      
+              <Link
+                href="#profissoes"
+                onClick={() => setFlipped(null)}
+                 className="inline-block bg-accent/100 text-white hover:bg-primary hover:text-white font-medium py-3 px-8 rounded-lg transition shadow-md"
+              >
+                Simular meu Seguro agora →
+              </Link>
 
         </div>
      </section>

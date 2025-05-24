@@ -35,11 +35,18 @@ export default function Header() {
           <Link href="/consorcios" className="text-white hover:text-accent transition-colors font-medium">CONSÓRCIOS</Link>
 
          <div className="flex items-center h-full">
-  <FormularioPopup
-    buttonText="CONTATO"
-    className="text-white hover:text-accent transition-colors font-medium bg-transparent border-none shadow-none px-4 py-0"
-  />
+ <li>
+  <button
+    onClick={() => window.abrirContatoPopup?.()}
+   className="text-white hover:text-accent transition-colors font-medium"
+  >
+  CONTATO
+  </button>
+</li>
+
 </div>
+
+{/* className="text-white hover:text-accent transition-colors font-medium bg-transparent border-none shadow-none px-4 py-0 */}
 
         </nav>
 
