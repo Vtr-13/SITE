@@ -1,8 +1,7 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
   "/investimentos/page": "app/investimentos/page.js",
   "/saude/page": "app/saude/page.js",
-  "/consorcios/page": "app/consorcios/page.js",
   "/financiamentos/page": "app/financiamentos/page.js",
-  "/page": "app/page.js"
+  "/page": "app/page.js",
+  "/consorcios/page": "app/consorcios/page.js"
 }
