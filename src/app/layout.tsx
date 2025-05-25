@@ -3,9 +3,6 @@ import './globals.css'
 
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
-import FloatingButtons from '@/components/forms/FloatingButtons'
-
-// ⬇️ NOVO IMPORT
 import FormContatoPopup from '@/components/forms/FormContatoPopup'
 
 export const viewport: Viewport = {
@@ -37,17 +34,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR">
-      <head>{/* …seu cookie-consent continua igual… */}</head>
-
+      <head>{/* ... */}</head>
       <body className="bg-primary">
         <Header />
         <main className="pt-24">{children}</main>
         <Footer />
 
-        {/* Botões flutuantes já existentes */}
-        <FloatingButtons />
-
-        {/* ⬇️ POP-UP GENÉRICO DE CONTATO — fica invisível até ser chamado */}
+        {/* Apenas o FormContatoPopup — agora com botões flutuantes embutidos */}
         <FormContatoPopup />
       </body>
     </html>

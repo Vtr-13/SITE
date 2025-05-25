@@ -6,7 +6,7 @@ import Link from 'next/link'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 import FormPopup from '@/components/forms/FormPopup'
-import { DistribuicaoGrid } from '@/components/forms/saude/FormSaudeAddon'
+import { DistribuicaoGrid } from '@/components/forms/FormSaudeAddon'
 
 import { Disclosure } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/24/solid'

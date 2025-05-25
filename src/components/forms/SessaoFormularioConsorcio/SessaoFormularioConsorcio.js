@@ -4,7 +4,7 @@ import { useState, useEffect, useRef, forwardRef } from 'react'
 import { useForm } from 'react-hook-form'
 import * as Tabs from '@radix-ui/react-tabs'
 import { gruposConsorcio, camposConsorcio } from '@/components/forms/formsConfigConsorcio'
-import './SessaoFormularioConsorcio.css'
+
 
 const SessaoFormularioConsorcio = forwardRef((_, ref) => {
   const [grupoAtivo, setGrupoAtivo] = useState(null)

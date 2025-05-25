@@ -395,10 +395,12 @@ function Card({ ramo, flipped, setFlipped }: {
   const isOpen = flipped === ramo.nome;
 
   return (
-   <div
-  className={`flip-card bg-offwhite rounded-xl shadow-lg h-full transition-transform duration-300 hover:lg:scale-105 ${isOpen ? "is-flipped" : ""}`}
+  <div
+  className={`flip-card bg-offwhite rounded-xl shadow-lg h-full lg:transition-transform lg:hover:scale-105 ${isOpen ? "is-flipped" : ""}`}
   onClick={() => setFlipped(isOpen ? null : ramo.nome)}
 >
+
+
 
 
       <div className="flip-card-inner">
@@ -412,19 +414,24 @@ function Card({ ramo, flipped, setFlipped }: {
     e.stopPropagation();
     setFlipped(ramo.nome); // Força o flip ao clicar
   }}
-  className="inline-block bg-primary text-white hover:bg-primary hover:text-primary font-medium py-3 px-8 rounded-lg transition shadow-md hover:scale-105"
+  className="pointer-events-auto touch-auto inline-block bg-primary text-white hover:bg-primary hover:text-primary font-medium py-3 px-8 rounded-lg transition shadow-md hover:scale-105"
 >
   Saiba mais
 </button>
 
-          <div onClick={(e) => e.stopPropagation()}>
+<div
+  onClick={(e) => e.stopPropagation()}
+  className="pointer-events-auto touch-auto"
+>
   <FormPopup
     segmento="financiamentos"
-    produtoId={ramo.produtoId}      // usa o campo que adicionamos
+    produtoId={ramo.produtoId}
     buttonText="Solicitar Cotação"
     className="inline-block bg-accent text-primary hover:bg-primary hover:text-white font-medium py-3 px-8 rounded-lg transition shadow-md hover:scale-105"
   />
 </div>
+
+
 
           </div>
         </div>
@@ -484,17 +491,9 @@ useEffect(() => {
 
 /* 2️⃣  Bloqueia / libera a rolagem -------------------------------- */
 useEffect(() => {
-  const html = document.documentElement;
-  const body = document.body;
-
-  if (flipped) {
-    html.classList.add("overflow-hidden");              // remove scrollbar
-    body.classList.add("overflow-hidden", "touch-none"); // bloqueia gesto
-  } else {
-    html.classList.remove("overflow-hidden");
-    body.classList.remove("overflow-hidden", "touch-none");
-  }
+  document.body.style.overflow = flipped ? "hidden" : "auto";
 }, [flipped]);
+
 
 
 
@@ -502,7 +501,7 @@ useEffect(() => {
 
   return (
     <main className="bg-primary text-white overflow-hidden relative">
-     <section className="relative h-[calc(111vh-96px)] w-full overflow-hidden text-center">
+     <section className="relative h-[calc(100vh-96px)] w-full overflow-hidden text-center">
   {/* Carrossel de Imagens */}
   <Swiper
     modules={[Autoplay, EffectFade]}

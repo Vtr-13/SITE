@@ -1,9 +1,8 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
-  "/financiamentos/page": "app/financiamentos/page.js",
-  "/seguros/page": "app/seguros/page.js",
+  "/investimentos/page": "app/investimentos/page.js",
+  "/saude/page": "app/saude/page.js",
   "/consorcios/page": "app/consorcios/page.js",
-  "/page": "app/page.js",
-  "/termo-uso/page": "app/termo-uso/page.js",
-  "/politica-privacidade/page": "app/politica-privacidade/page.js"
+  "/financiamentos/page": "app/financiamentos/page.js",
+  "/page": "app/page.js"
 }

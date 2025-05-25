@@ -443,21 +443,43 @@ const faq = [
           </p>
         </div>
 
-        <div className="relative px-6"> {/* Abre espaço lateral para os botões */}
+      {/* CONTÊINER RELATIVO */}
+<div className="relative max-w-6xl mx-auto px-6">
 
+  {/* Botão anterior */}
+  <div className="absolute top-1/2 left-0 -translate-y-1/2 -translate-x-full z-10 md:-translate-x-8">
+    <button className="btn-prev p-2 bg-white border border-gray-300 rounded-full shadow hover:bg-gray-100 transition">
+      <svg className="w-6 h-6 text-[#c35e00]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+      </svg>
+    </button>
+  </div>
+
+  {/* Botão próximo */}
+  <div className="absolute top-1/2 right-0 -translate-y-1/2 translate-x-full z-10 md:translate-x-8">
+    <button className="btn-next p-2 bg-white border border-gray-300 rounded-full shadow hover:bg-gray-100 transition">
+      <svg className="w-6 h-6 text-[#c35e00]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
+  </div>
+
+  {/* Swiper carrossel */}
   <Swiper
     modules={[Navigation, Pagination, Autoplay]}
-    slidesPerView={1}
-    spaceBetween={30}
-    navigation
+    navigation={{ nextEl: '.btn-next', prevEl: '.btn-prev' }}
     autoplay={{ delay: 10000 }}
     pagination={{ clickable: true }}
+    slidesPerView={1}
+    spaceBetween={30}
     breakpoints={{
       768: { slidesPerView: 2 },
       1024: { slidesPerView: 3 },
     }}
     className="max-w-6xl mx-auto"
   >
+
+    
   {/* SLIDE 1 */}
   <SwiperSlide className="flex">
     <div className="flex flex-col border border-borda bg-offwhite rounded-md p-6 text-left shadow-sm hover:shadow-md transition w-full h-full min-h-[340px]">

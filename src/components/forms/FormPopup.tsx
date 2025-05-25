@@ -3,7 +3,7 @@ import { useState, useMemo } from 'react'
 import { createPortal } from 'react-dom'
 import { formsConfig, Field } from './formsConfig'
 /* ⬇️  importa o grid exclusivo de saúde */
-import { DistribuicaoGrid } from './saude/FormSaudeAddon'
+import { DistribuicaoGrid } from './FormSaudeAddon'
 import { useEffect } from 'react' // 
 interface FormPopupProps {
   segmento: 'seguros' | 'investimentos' | 'saude' | 'financiamentos' | 'consorcios'
@@ -32,18 +32,27 @@ export default function FormPopup({
   const [isOpen, setIsOpen] = useState(false)
   const [formData, setFormData] = useState<Record<string, any>>(initialState)
   const [sending, setSending] = useState(false)
-  useEffect(() => {
+
+
+ useEffect(() => {
   const html = document.documentElement
   const body = document.body
 
-  if (isOpen) {
-    html.classList.add('overflow-hidden')
-    body.classList.add('overflow-hidden', 'touch-none')
-  } else {
-    html.classList.remove('overflow-hidden')
-    body.classList.remove('overflow-hidden', 'touch-none')
+  const dentroDeCardFlip = !!document.querySelector('.flip-card.is-flipped')
+
+  if (isOpen && !dentroDeCardFlip) {
+    html.style.overflow = 'hidden'
+    body.style.overflow = 'hidden'
+  } else if (!isOpen && !dentroDeCardFlip) {
+    html.style.overflow = ''
+    body.style.overflow = ''
   }
+
+  // sempre remove touch-none por segurança
+  body.classList.remove('touch-none')
 }, [isOpen])
+
+
 
 
   /* handler de mudança */

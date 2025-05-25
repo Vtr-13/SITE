@@ -167,10 +167,8 @@ export default function Footer() {
           sob supervisão da SUSEP e demais reguladores do setor.
           <br /><br />
           <strong>ARJ PRIME Banker Soluções em Investimentos, Crédito e Seguros LTDA</strong>
-          (CNPJ 59.043.589/0001-58) responde pelos serviços de consultoria de
-          investimentos, distribuição de produtos financeiros, operações de
-          crédito, consórcios e gestão patrimonial, em conformidade com CVM,
-          Banco Central e ANBIMA.
+          (CNPJ 59.043.589/0001-58) responde pelos serviços de distribuição de produtos financeiros, operações de
+          crédito, consórcios e gestão patrimonial, em conformidade com os reguladores do setor.
           <br /><br />
           Profissionais habilitados em <em>CEA – ANBIMA, CA-600 – ABECIP, ENS (Vida,
           Previdência &amp; Capitalização), FBB 100 – FEBRABAN</em> e

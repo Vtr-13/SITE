@@ -3,15 +3,10 @@ import { useState, useEffect, ChangeEvent, FormEvent } from 'react'
 import { createPortal } from 'react-dom'
 
 type Props = {
-  /** Nome da função global que dispara o pop-up (pode trocar se quiser vários). */
   gatilhoGlobal?: string
-  /** Opções do campo “Assunto”. */
   assuntos?: string[]
-  /** Texto do botão interno (caso use <FormContatoPopup mostrarBotao />). */
   textoBotao?: string
-  /** Se TRUE renderiza o botão dentro do próprio componente. */
   mostrarBotao?: boolean
-  /** Classes extras para o botão interno. */
   classeBotao?: string
 }
 
@@ -29,7 +24,6 @@ export default function FormContatoPopup({
   mostrarBotao = false,
   classeBotao = '',
 }: Props) {
-  /* ---------- estado ---------- */
   const [aberto, setAberto] = useState(false)
   const [enviando, setEnviando] = useState(false)
   const [dados, setDados] = useState({
@@ -40,7 +34,6 @@ export default function FormContatoPopup({
     mensagem: '',
   })
 
-  /* ---------- expõe gatilho global ---------- */
   useEffect(() => {
     ;(window as any)[gatilhoGlobal] = () => setAberto(true)
     return () => {
@@ -48,7 +41,6 @@ export default function FormContatoPopup({
     }
   }, [gatilhoGlobal])
 
-  /* ---------- trava/destrava rolagem ---------- */
   useEffect(() => {
     const html = document.documentElement
     const body = document.body
@@ -61,7 +53,6 @@ export default function FormContatoPopup({
     }
   }, [aberto])
 
-  /* ---------- handlers ---------- */
   const onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
     setDados(prev => ({ ...prev, [name]: value }))
@@ -87,9 +78,32 @@ export default function FormContatoPopup({
     }
   }
 
-  /* ---------- UI ---------- */
   return (
     <>
+      {/* Botões flutuantes sempre visíveis */}
+      <div className="fixed bottom-5 right-5 z-50 flex flex-col gap-4 items-end">
+        {/* WhatsApp */}
+        <a
+          href="https://wa.me/5511988889998"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-9 h-9 rounded-full bg-white shadow-xl hover:scale-105 transition-transform duration-300 flex items-center justify-center"
+          title="Fale via WhatsApp"
+        >
+          <img src="/images/whatsapp.svg" alt="WhatsApp" className="w-9 h-9" />
+        </a>
+
+        {/* Formulário */}
+        <button
+          onClick={() => setAberto(true)}
+          className="cursor-pointer w-9 h-9 rounded-full bg-white shadow-xl hover:scale-105 transition-transform duration-300 flex items-center justify-center"
+          title="Entre em contato"
+        >
+          <img src="/images/formulario.svg" alt="Formulário" className="w-9 h-9" />
+        </button>
+      </div>
+
+      {/* Botão opcional dentro da página */}
       {mostrarBotao && (
         <button
           onClick={() => setAberto(true)}
@@ -99,6 +113,7 @@ export default function FormContatoPopup({
         </button>
       )}
 
+      {/* Modal de formulário */}
       {aberto &&
         createPortal(
           <div
@@ -109,7 +124,7 @@ export default function FormContatoPopup({
               className="relative bg-[#070D17] text-white rounded-lg shadow-lg w-full max-w-xl max-h-full overflow-y-auto p-8"
               onClick={e => e.stopPropagation()}
             >
-              {/* fechar */}
+              {/* Botão de fechar */}
               <button
                 onClick={() => setAberto(false)}
                 className="absolute top-3 right-3 text-2xl hover:text-accent"
@@ -121,7 +136,7 @@ export default function FormContatoPopup({
               <h2 className="text-2xl font-semibold mb-6">Entre em Contato</h2>
 
               <form onSubmit={onSubmit} className="space-y-4">
-                {/* nome */}
+                {/* Nome */}
                 <div>
                   <label className="block mb-1 text-sm">Nome completo*</label>
                   <input
@@ -135,7 +150,7 @@ export default function FormContatoPopup({
                   />
                 </div>
 
-                {/* email + telefone */}
+                {/* Email e telefone */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block mb-1 text-sm">E-mail*</label>
@@ -149,7 +164,6 @@ export default function FormContatoPopup({
                       placeholder="voce@email.com"
                     />
                   </div>
-
                   <div>
                     <label className="block mb-1 text-sm">Telefone*</label>
                     <input
@@ -164,7 +178,7 @@ export default function FormContatoPopup({
                   </div>
                 </div>
 
-                {/* assunto */}
+                {/* Assunto */}
                 <div>
                   <label className="block mb-1 text-sm">Assunto*</label>
                   <select
@@ -181,7 +195,7 @@ export default function FormContatoPopup({
                   </select>
                 </div>
 
-                {/* mensagem */}
+                {/* Mensagem */}
                 <div>
                   <label className="block mb-1 text-sm">Descreva sua solicitação</label>
                   <textarea

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import FormularioPopup from "@/components/layout/FormularioPopup";
+import FormularioPopup from "@/components/forms/FormContatoPopup";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -81,18 +81,17 @@ export default function Header() {
             <Link href="/saude" className="text-white hover:text-accent transition-colors" onClick={toggleMenu}>PLANOS DE SAÚDE</Link>
             <Link href="/financiamentos" className="text-white hover:text-accent transition-colors" onClick={toggleMenu}>FINANCIAMENTOS</Link>
             <Link href="/consorcios" className="text-white hover:text-accent transition-colors" onClick={toggleMenu}>CONSÓRCIOS</Link>
-            <Link
-              href="#"
-              className="text-white hover:text-accent transition-colors font-medium"
-              onClick={(e) => {
-                e.preventDefault();
-                const botao = document.getElementById("botao-contato");
-                if (botao) botao.click();
-                toggleMenu();
-              }}
-            >
-              CONTATO
-            </Link>
+
+           <button
+  onClick={() => {
+    window.abrirContatoPopup?.();
+    toggleMenu(); // fecha o menu
+  }}
+  className="text-white hover:text-accent transition-colors font-medium text-left"
+>
+  CONTATO
+</button>
+
           </div>
         </div>
       )}
