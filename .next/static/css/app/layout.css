@@ -2696,8 +2696,9 @@ html, body {
 /* === Flip-card ▸ correção mobile: rotação + scroll ============= */
 @media (max-width: 1023px) {
   .flip-card {
+    position: relative !important;
     touch-action: pan-y !important;
-    overscroll-behavior: auto !important;
+    overscroll-behavior-y: contain;
     -webkit-overflow-scrolling: touch;
     pointer-events: auto !important;
   }
@@ -2708,13 +2709,12 @@ html, body {
 
   .flip-card.is-flipped {
     position: absolute !important;
-    inset: 0 !important;
+    inset: 0;
     width: 100% !important;
     height: 100% !important;
-    max-width: 100% !important;
-    background: rgba(20, 34, 59, 0.96);
-    overflow-y: auto !important;
     z-index: 9999;
+    background: rgba(20, 34, 59, 0.96);
+    overflow: hidden !important;
   }
 
   .flip-card-back {
@@ -2722,6 +2722,8 @@ html, body {
     overflow-y: auto !important;
     -webkit-overflow-scrolling: touch !important;
     touch-action: pan-y !important;
+    display: flex;
+    flex-direction: column;
   }
 
   .flip-card:hover {
@@ -2729,8 +2731,9 @@ html, body {
     box-shadow: none !important;
   }
 
-  .flip-card * {
-    pointer-events: auto !important;
+  .btn-primary,
+  .btn-accent {
+    transform: none !important;
   }
 }
 .file\:border-0::file-selector-button{
@@ -3817,6 +3820,9 @@ html, body {
 [data-side=right] .\[\[data-side\=right\]_\&\]\:cursor-e-resize{
   cursor: e-resize;
 }
+
+
+
 
 
 

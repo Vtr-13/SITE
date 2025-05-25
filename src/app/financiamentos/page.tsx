@@ -436,7 +436,7 @@ function Card({ ramo, flipped, setFlipped }: {
           </div>
         </div>
 
-        <div className="flip-card-back text-white flex justify-center items-start overflow-auto" onClick={() => setFlipped(null)}>
+        <div className="flip-card-back text-white flex flex-col justify-start overflow-y-auto h-full" onClick={() => setFlipped(null)}>
           <div className="relative w-full max-w-3xl pt-14 pb-10 px-4 md:px-0" onClick={(e) => e.stopPropagation()}>
             <button className="flip-close" onClick={(e) => { e.stopPropagation(); setFlipped(null); }}>✕ Fechar</button>
             <h3 className="text-3xl font-semibold mb-4">{ramo.nome}</h3>
@@ -489,10 +489,7 @@ useEffect(() => {
   AOS.init({ once: true });
 }, []);
 
-/* 2️⃣  Bloqueia / libera a rolagem -------------------------------- */
-useEffect(() => {
-  document.body.style.overflow = flipped ? "hidden" : "auto";
-}, [flipped]);
+
 
 
 
