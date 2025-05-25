@@ -396,9 +396,10 @@ function Card({ ramo, flipped, setFlipped }: {
 
   return (
   <div
-  className={`flip-card bg-offwhite rounded-xl shadow-lg h-full lg:transition-transform lg:hover:scale-105 ${isOpen ? "is-flipped" : ""}`}
+  className={`flip-card financiamento-card bg-offwhite rounded-xl shadow-lg h-full lg:transition-transform lg:hover:scale-105 ${isOpen ? "is-flipped" : ""}`}
   onClick={() => setFlipped(isOpen ? null : ramo.nome)}
 >
+
 
 
 
@@ -489,6 +490,18 @@ useEffect(() => {
   AOS.init({ once: true });
 }, []);
 
+useEffect(() => {
+  const html = document.documentElement;
+  const body = document.body;
+
+  if (flipped) {
+    html.classList.add("overflow-hidden");
+    body.classList.add("overflow-hidden", "touch-none");
+  } else {
+    html.classList.remove("overflow-hidden");
+    body.classList.remove("overflow-hidden", "touch-none");
+  }
+}, [flipped]);
 
 
 
